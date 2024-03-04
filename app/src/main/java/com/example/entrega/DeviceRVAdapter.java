@@ -77,10 +77,10 @@ public class DeviceRVAdapter extends RecyclerView.Adapter<DeviceRVAdapter.ViewHo
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             // initializing our text views
-            courseNameTV = itemView.findViewById(R.id.idTVCourseName);
-            deviceYearTV = itemView.findViewById(R.id.idTVCourseDescription);
-            deviceModelTV = itemView.findViewById(R.id.idTVCourseDuration);
-            deviceTypeTV = itemView.findViewById(R.id.idTVCourseTracks);
+            courseNameTV = itemView.findViewById(R.id.idTVDeviceName);
+            deviceYearTV = itemView.findViewById(R.id.idTVDeviceType);
+            deviceModelTV = itemView.findViewById(R.id.idTVDeviceModel);
+            deviceTypeTV = itemView.findViewById(R.id.idTVDeviceYear);
         }
     }
 }

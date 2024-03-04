@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ViewDevices">
 
-    <!--recycler view for displaying our devices-->
+    <!--recycler view for displaying our courses-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/idRVDevices"
         android:layout_width="match_parent"

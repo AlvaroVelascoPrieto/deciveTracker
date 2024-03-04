@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".UpdateDeviceActivity">
+
+        <!--Edit text to enter course name-->
+        <EditText
+            android:id="@+id/idEdtDeviceName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="Enter Device Name" />
+
+        <!--edit text to enter course duration-->
+        <EditText
+            android:id="@+id/idEdtDeviceYear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="Enter Device Year" />
+
+        <!--edit text to display course tracks-->
+        <EditText
+            android:id="@+id/idEdtDeviceModel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="Enter Device Model" />
+
+        <!--edit text for course description-->
+        <EditText
+            android:id="@+id/idEdtDeviceType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="Enter Device Type" />
+
+        <!--button for updating our course-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <Button
+                android:id="@+id/idBtnUpdateDevice"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="3dp"
+                android:layout_margin="10dp"
+                android:text="Update Device"
+                android:textAllCaps="false" />
+
+            <!--button for deleting our course-->
+            <Button
+                android:id="@+id/idBtnDelete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="3dp"
+                android:layout_margin="10dp"
+                android:text="Delete Device"
+                android:textAllCaps="false" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
