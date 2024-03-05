@@ -1,5 +1,6 @@
 package com.example.entrega;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.entrega.controller.DBHandler;
@@ -71,11 +73,39 @@ public class UpdateDeviceActivity extends AppCompatActivity {
         deleteDeviceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Create the object of AlertDialog Builder class
+                AlertDialog.Builder builder = new AlertDialog.Builder(UpdateDeviceActivity.this);
+
+                // Set the message show for the Alert time
+                builder.setMessage("Do you really want to delete this device?");
+
+                // Set Alert Title
+                builder.setTitle("DELETE DEVICE");
+
+                // Set Cancelable false for when the user clicks on the outside the Dialog Box then it will remain show
+                builder.setCancelable(false);
+
+                // Set the positive button with yes name Lambda OnClickListener method is use of DialogInterface interface.
+                builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
+                    // When the user click yes button then app will close
+                    dbHandler.deleteDevice(deviceName);
+                    Toast.makeText(UpdateDeviceActivity.this, "Deleted the device", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(UpdateDeviceActivity.this, MainActivity.class);
+                    startActivity(i);
+                });
+
+                // Set the Negative button with No name Lambda OnClickListener method is use of DialogInterface interface.
+                builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
+                    // If user click no then dialog box is canceled.
+                    dialog.cancel();
+                });
+
+                // Create the Alert dialog
+                AlertDialog alertDialog = builder.create();
+                // Show the Alert Dialog box
+                alertDialog.show();
                 // calling a method to delete our course.
-                dbHandler.deleteDevice(deviceName);
-                Toast.makeText(UpdateDeviceActivity.this, "Deleted the course", Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(UpdateDeviceActivity.this, MainActivity.class);
-                startActivity(i);
+
             }
         });
     }
