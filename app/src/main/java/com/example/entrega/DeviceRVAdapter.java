@@ -54,8 +54,9 @@ public class DeviceRVAdapter extends RecyclerView.Adapter<DeviceRVAdapter.ViewHo
                 // below we are passing all our values.
                 i.putExtra("name", modal.getDeviceName());
                 i.putExtra("year", modal.getdeviceYear());
-                i.putExtra("model", modal.getdeviceModel());
                 i.putExtra("type", modal.getdeviceType());
+                i.putExtra("model", modal.getdeviceModel());
+
 
                 // starting our activity.
                 context.startActivity(i);

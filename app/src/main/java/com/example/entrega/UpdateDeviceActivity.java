@@ -4,8 +4,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -13,10 +15,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.entrega.controller.DBHandler;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UpdateDeviceActivity extends AppCompatActivity {
 
     // variables for our edit text, button, strings and dbhandler class.
-    private EditText deviceNameEdt, deviceYearEdt, deviceModelEdt, deviceTypeEdt;
+    private EditText deviceNameEdt, deviceYearEdt, deviceModelEdt;
+    private Spinner deviceTypeSpinner;
     private Button updateDeviceBtn, deleteDeviceBtn;
     private DBHandler dbHandler;
     String deviceName, deviceYear, deviceModel, deviceType;
@@ -30,7 +36,7 @@ public class UpdateDeviceActivity extends AppCompatActivity {
         deviceNameEdt = findViewById(R.id.idEdtDeviceName);
         deviceYearEdt = findViewById(R.id.idEdtDeviceYear);
         deviceModelEdt = findViewById(R.id.idEdtDeviceModel);
-        deviceTypeEdt = findViewById(R.id.idEdtDeviceType);
+        deviceTypeSpinner = findViewById(R.id.idSpinerDeviceType);
         updateDeviceBtn = findViewById(R.id.idBtnUpdateDevice);
         deleteDeviceBtn = findViewById(R.id.idBtnDelete);
 
@@ -40,16 +46,36 @@ public class UpdateDeviceActivity extends AppCompatActivity {
         // on below lines we are getting data which
         // we passed in our adapter class.
         deviceName = getIntent().getStringExtra("name");
-        deviceYear = getIntent().getStringExtra("year");
-        deviceModel = getIntent().getStringExtra("model");
-        deviceType = getIntent().getStringExtra("type");
-
+        deviceType = getIntent().getStringExtra("year");
+        deviceYear = getIntent().getStringExtra("model");
+        deviceModel = getIntent().getStringExtra("type");
+        System.out.println(deviceName);
+        System.out.println(deviceYear);
+        System.out.println(deviceModel);
+        System.out.println(deviceType);
         // setting data to edit text
         // of our update activity.
         deviceNameEdt.setText(deviceName);
         deviceYearEdt.setText(deviceYear);
         deviceModelEdt.setText(deviceModel);
-        deviceTypeEdt.setText(deviceType);
+
+        // Spinner Drop down elements
+        List<String> categories = new ArrayList<String>();
+        categories.add("Phone");
+        categories.add("Laptop");
+        categories.add("Tablet");
+        categories.add("Workstation");
+        categories.add("Home PC");
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        deviceTypeSpinner.setAdapter(dataAdapter);
+        deviceTypeSpinner.setSelection(dataAdapter.getPosition(deviceType));
 
         // adding on click listener to our update course button.
         updateDeviceBtn.setOnClickListener(new View.OnClickListener() {
@@ -58,7 +84,7 @@ public class UpdateDeviceActivity extends AppCompatActivity {
 
                 // inside this method we are calling an update course
                 // method and passing all our edit text values.
-                dbHandler.updateDevice(deviceName, deviceNameEdt.getText().toString(), deviceYearEdt.getText().toString(), deviceModelEdt.getText().toString(), deviceTypeEdt.getText().toString());
+                dbHandler.updateDevice(deviceName, deviceNameEdt.getText().toString(), deviceYearEdt.getText().toString(), deviceModelEdt.getText().toString(), deviceTypeSpinner.getSelectedItem().toString());
 
                 // displaying a toast message that our course has been updated.
                 Toast.makeText(UpdateDeviceActivity.this, "Course Updated..", Toast.LENGTH_SHORT).show();
@@ -80,7 +106,7 @@ public class UpdateDeviceActivity extends AppCompatActivity {
                 builder.setMessage("Do you really want to delete this device?");
 
                 // Set Alert Title
-                builder.setTitle("DELETE DEVICE");
+                builder.setTitle("Delete device");
 
                 // Set Cancelable false for when the user clicks on the outside the Dialog Box then it will remain show
                 builder.setCancelable(false);

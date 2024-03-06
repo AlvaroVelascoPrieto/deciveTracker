@@ -31,13 +31,21 @@
         android:layout_margin="10dp"
         android:hint="Enter Device Model" />
 
-    <!--edit text for device type-->
-    <EditText
-        android:id="@+id/idEdtDeviceType"
+    <!-- Text Label -->
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:hint="Enter Device Type" />
+        android:text="Device type:"
+        />
+
+    <!-- Spinner Element -->
+    <Spinner
+        android:id="@+id/idSpinerDeviceType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:prompt="@string/spinner_title" />
 
     <!--button for updating our device-->
     <Button

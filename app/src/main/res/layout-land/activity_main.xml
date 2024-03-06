@@ -35,13 +35,21 @@
             android:layout_margin="10dp"
             android:hint="Enter model" />
 
-        <!--edit text for course description-->
-        <EditText
-            android:id="@+id/idEdtDeviceType"
+        <!-- Text Label -->
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="Enter device type" />
+            android:text="Device type:"
+            />
+
+        <!-- Spinner Element -->
+        <Spinner
+            android:id="@+id/idSpinerDeviceType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:prompt="@string/spinner_title" />
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -3,18 +3,25 @@ package com.example.entrega;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.entrega.controller.DBHandler;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     // creating variables for our edittext, button and dbhandler
-    private EditText deviceNameEdt, deviceYearEdt, deviceModelEdt, deviceTypeEdt;
+    private EditText deviceNameEdt, deviceYearEdt, deviceModelEdt;
+    private Spinner deviceTypeSpinner;
     private Button addDeviceBtn, seeDevicesBtn;
     private DBHandler dbHandler;
 
@@ -27,9 +34,27 @@ public class MainActivity extends AppCompatActivity {
         deviceNameEdt = findViewById(R.id.idEdtDeviceName);
         deviceYearEdt = findViewById(R.id.idEdtDeviceYear);
         deviceModelEdt = findViewById(R.id.idEdtDeviceModel);
-        deviceTypeEdt = findViewById(R.id.idEdtDeviceType);
+        deviceTypeSpinner = findViewById(R.id.idSpinerDeviceType);
         addDeviceBtn = findViewById(R.id.idBtnAddDevice);
         seeDevicesBtn = findViewById(R.id.idBtnSeeDevices);
+
+        // Spinner Drop down elements
+        List<String> categories = new ArrayList<String>();
+        categories.add("Phone");
+        categories.add("Laptop");
+        categories.add("Tablet");
+        categories.add("Workstation");
+        categories.add("Home PC");
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        deviceTypeSpinner.setAdapter(dataAdapter);
+
 
         // creating a new dbhandler class
         // and passing our context to it.
@@ -44,7 +69,8 @@ public class MainActivity extends AppCompatActivity {
                 String deviceName = deviceNameEdt.getText().toString();
                 String deviceYear = deviceYearEdt.getText().toString();
                 String deviceModel = deviceModelEdt.getText().toString();
-                String deviceType = deviceTypeEdt.getText().toString();
+                String deviceType = deviceTypeSpinner.getSelectedItem().toString();
+
 
                 // validating if the text fields are empty or not.
                 if (deviceName.isEmpty() || deviceYear.isEmpty() || deviceModel.isEmpty() || deviceType.isEmpty()) {
@@ -61,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
                 deviceNameEdt.setText("");
                 deviceModelEdt.setText("");
                 deviceYearEdt.setText("");
-                deviceTypeEdt.setText("");
             }
         });
 

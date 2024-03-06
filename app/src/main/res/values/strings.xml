@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DeviceTracker</string>
+    <string name="spinner_title">Device Type</string>
 </resources>
