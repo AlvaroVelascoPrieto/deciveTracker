@@ -1,5 +1,6 @@
 package com.example.entrega;
 
+import android.app.DatePickerDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -25,6 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.entrega.controller.DBHandler;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -70,6 +73,13 @@ public class MainActivity extends AppCompatActivity {
         // and passing our context to it.
         dbHandler = new DBHandler(MainActivity.this);
 
+
+        deviceYearEdt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePicker(MainActivity.this);
+            }
+        });
         // below line is to add on click listener for our add course button.
         addDeviceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,6 +151,28 @@ public class MainActivity extends AppCompatActivity {
                 Intent i = new Intent(MainActivity.this, ViewDevices.class);
                 startActivity(i);
             }
-        });
+        }
+        );
+    }
+    private void showDatePicker(Context context) {
+        // Get current year, month, and day
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+
+        // Create DatePickerDialog and set the selected date listener
+        DatePickerDialog datePickerDialog = new DatePickerDialog(context,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        // Update the EditText with the selected year
+                        deviceYearEdt.setText(String.valueOf(year));
+                    }
+                }, year, calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+
+        // Set the maximum date to the current date
+        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+
+        // Show the DatePickerDialog
+        datePickerDialog.show();
     }
 }

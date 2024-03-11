@@ -25,7 +25,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="Enter Device Year" />
+            android:hint="Enter year"
+            android:focusable="false"
+            android:clickable="true"
+            />
 
         <!--edit text to display course tracks-->
         <EditText

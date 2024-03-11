@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    tools:ignore="ExtraText">
 
     <!--Edit text to enter device name-->
     <EditText
@@ -21,7 +22,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:hint="Enter year" />
+        android:hint="Enter year"
+        android:focusable="false"
+        android:clickable="true"
+    />
 
     <!--edit text to display device model-->
     <EditText
