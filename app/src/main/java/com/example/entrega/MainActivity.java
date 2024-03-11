@@ -1,7 +1,17 @@
 package com.example.entrega;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -71,6 +81,34 @@ public class MainActivity extends AppCompatActivity {
                 String deviceModel = deviceModelEdt.getText().toString();
                 String deviceType = deviceTypeSpinner.getSelectedItem().toString();
 
+                // Notification Channel ID. You can create multiple channels if needed.
+                String channelId = "my_channel_id";
+                CharSequence channelName = "My Channel";
+
+                NotificationManager notificationManager =
+                        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+                // Check if the channel exists (required for API 26 and above)
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    NotificationChannel channel = notificationManager.getNotificationChannel(channelId);
+                    if (channel == null) {
+                        // Create the channel if it doesn't exist
+                        channel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT);
+                        // Configure the channel's behavior
+                        channel.setDescription("My Channel Description");
+                        // Register the channel with the system
+                        notificationManager.createNotificationChannel(channel);
+                    }
+                }
+
+                // Now, you can create and show notifications using this channel
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, channelId)
+                        .setSmallIcon(R.drawable.ic_launcher_foreground)
+                        .setContentTitle("Dispositivo añadido")
+                        .setContentText(deviceName);
+
+                // Show the notification
+                notificationManager.notify(1, builder.build());
 
                 // validating if the text fields are empty or not.
                 if (deviceName.isEmpty() || deviceYear.isEmpty() || deviceModel.isEmpty() || deviceType.isEmpty()) {
@@ -89,6 +127,12 @@ public class MainActivity extends AppCompatActivity {
                 deviceYearEdt.setText("");
             }
         });
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("My channel", "MyNotificationChannel", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
 
         seeDevicesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
