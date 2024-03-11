@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.entrega.controller.DBHandler;
 
@@ -35,6 +38,10 @@ public class UpdateDeviceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_device);
+
+        // Initializing toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         // initializing all our variables.
         deviceNameEdt = findViewById(R.id.idEdtDeviceName);
@@ -81,17 +88,17 @@ public class UpdateDeviceActivity extends AppCompatActivity {
         deviceTypeSpinner.setAdapter(dataAdapter);
         deviceTypeSpinner.setSelection(dataAdapter.getPosition(deviceType));
 
-        // adding on click listener to our update course button.
+        // adding on click listener to our update device button.
         updateDeviceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                // inside this method we are calling an update course
+                // inside this method we are calling an update device
                 // method and passing all our edit text values.
                 dbHandler.updateDevice(deviceName, deviceNameEdt.getText().toString(), deviceYearEdt.getText().toString(), deviceModelEdt.getText().toString(), deviceTypeSpinner.getSelectedItem().toString());
 
-                // displaying a toast message that our course has been updated.
-                Toast.makeText(UpdateDeviceActivity.this, "Course Updated..", Toast.LENGTH_SHORT).show();
+                // displaying a toast message that our device has been updated.
+                Toast.makeText(UpdateDeviceActivity.this, "Device Updated..", Toast.LENGTH_SHORT).show();
 
                 // launching our main activity.
                 Intent i = new Intent(UpdateDeviceActivity.this, MainActivity.class);
@@ -106,7 +113,7 @@ public class UpdateDeviceActivity extends AppCompatActivity {
             }
         });
 
-        // adding on click listener for delete button to delete our course.
+        // adding on click listener for delete button to delete our device.
         deleteDeviceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,12 +148,13 @@ public class UpdateDeviceActivity extends AppCompatActivity {
                 AlertDialog alertDialog = builder.create();
                 // Show the Alert Dialog box
                 alertDialog.show();
-                // calling a method to delete our course.
+                // calling a method to delete our device.
 
             }
         });
     }
 
+    // Method to display DatePickerDialog
     private void showDatePicker(Context context) {
         // Get current year, month, and day
         Calendar calendar = Calendar.getInstance();
@@ -168,5 +176,43 @@ public class UpdateDeviceActivity extends AppCompatActivity {
         // Show the DatePickerDialog
         datePickerDialog.show();
     }
-}
 
+    // Method to create the toolbar menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
+
+    // Method to handle clicks on toolbar items
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_share) {
+            // Handle the share action here
+            shareDeviceData();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    // Method to share device data
+    private void shareDeviceData() {
+        // Get the device data
+        String deviceName = deviceNameEdt.getText().toString();
+        String deviceYear = deviceYearEdt.getText().toString();
+        String deviceModel = deviceModelEdt.getText().toString();
+        String deviceType = deviceTypeSpinner.getSelectedItem().toString();
+
+        // Create the share intent
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Device Information");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "Device Name: " + deviceName +
+                "\nDevice Year: " + deviceYear +
+                "\nDevice Model: " + deviceModel +
+                "\nDevice Type: " + deviceType);
+
+        // Start the share activity
+        startActivity(Intent.createChooser(shareIntent, "Share Device Data"));
+    }
+}
