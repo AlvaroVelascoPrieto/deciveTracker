@@ -57,7 +57,7 @@ public class DeviceRVAdapter extends RecyclerView.Adapter<DeviceRVAdapter.ViewHo
                 i.putExtra("name", modal.getLocationName());
                 i.putExtra("type", modal.getdeviceType());
                 i.putExtra("latitude", modal.getLatitude());
-                i.putExtra("longitude", modal.getLatitude());
+                i.putExtra("longitude", modal.getLongitude());
                 i.putExtra("altitude", modal.getAltitude());
                 i.putExtra("date", modal.getLogDate());
 

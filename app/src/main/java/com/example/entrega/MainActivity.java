@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private DBHandler dbHandler;
     public static final int DEFAULT_UPDATE_INTERVAL = 30;
     public static final int MAXIMUM_UPDATE_INTERVAL = 5;
-    private static final int PERMISSIONS_FINE_LOCATION = 99;
+    static final int PERMISSIONS_FINE_LOCATION = 99;
     //Google's API for location services
     FusedLocationProviderClient fusedLocationProviderClient;
     LocationRequest locationRequest;
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 // below line is to get data from all edit text fields.
                 String landmarkName = landmarkNameEdt.getText().toString();
                 String logDate = logDateEdt.getText().toString();
-                String latitude = longitudeEdt.getText().toString();
+                String latitude = latitudeEdt.getText().toString();
                 String longitude = longitudeEdt.getText().toString();
                 String altitude = altitudeEdt.getText().toString();
                 String locationType = locationTypeSpinner.getSelectedItem().toString();

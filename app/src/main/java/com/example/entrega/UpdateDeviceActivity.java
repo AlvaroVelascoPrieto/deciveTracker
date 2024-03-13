@@ -1,10 +1,17 @@
 package com.example.entrega;
 
+import static com.example.entrega.MainActivity.PERMISSIONS_FINE_LOCATION;
+
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 
@@ -18,25 +25,34 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.entrega.controller.DBHandler;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class UpdateDeviceActivity extends AppCompatActivity {
 
+    private static final int PERMISSIONS_FINE_LOCATION = 99;
     // variables for our edit text, button, strings and dbhandler class.
     private EditText locationNameEdt, logDateEdt, latitudeEdt, longitudeEdt, altitudeEdt;
     private Spinner locationTypeSpinner;
-    private Button updateLocationBtn, deleteLocationeBtn, getLocation;
+    private Button updateLocationBtn, deleteLocationeBtn, getLocation, openInMaps;
     private DBHandler dbHandler;
     String locationName, longitude, latitude, altitude, logDate, locationType;
+    FusedLocationProviderClient fusedLocationProviderClient;
+    LocationRequest locationRequest;
 
 
 
@@ -51,7 +67,7 @@ public class UpdateDeviceActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         androidx.appcompat.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setIcon(R.drawable.ic_launcher_foreground);
+        actionBar.setIcon(R.drawable.ic_launcher);
         actionBar.setTitle("Location");
         actionBar.setDisplayShowTitleEnabled(true);
         // methods to display the icon in the ActionBar
@@ -68,6 +84,8 @@ public class UpdateDeviceActivity extends AppCompatActivity {
         locationTypeSpinner = findViewById(R.id.idSpinerDeviceType);
         updateLocationBtn = findViewById(R.id.idBtnUpdateDevice);
         deleteLocationeBtn = findViewById(R.id.idBtnDelete);
+        openInMaps = findViewById(R.id.idBtnOpenMap);
+
 
         // on below line we are initializing our dbhandler class.
         dbHandler = new DBHandler(UpdateDeviceActivity.this);
@@ -133,6 +151,13 @@ public class UpdateDeviceActivity extends AppCompatActivity {
             }
         });
 
+        getLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateGPS();
+            }
+        });
+
         // adding on click listener for delete button to delete our device.
         deleteLocationeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,6 +197,65 @@ public class UpdateDeviceActivity extends AppCompatActivity {
 
             }
         });
+
+        openInMaps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String uri = String.format(Locale.ENGLISH, "geo:%f,%f", Float.valueOf(latitude), Float.valueOf(longitude));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                startActivity(intent);
+            }
+        });
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case PERMISSIONS_FINE_LOCATION:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    updateGPS();
+                }
+                else{
+                    Toast.makeText(this, "Location permission not granted", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                break;
+        }
+    }
+
+    private void updateGPS(){
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        if (this.checkCallingOrSelfPermission("android.permission.ACCESS_FINE_LOCATION") == PackageManager.PERMISSION_GRANTED){
+            //User provided permissions
+            //Get last location (not current) last stored one
+            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(android.location.Location location) {
+                    //We got the location we have to update
+                    updateUI(location);
+                }
+            });
+        }
+        else{
+            if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.M){
+                requestPermissions (new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_FINE_LOCATION);
+            }
+        }
+    }
+
+    private void updateUI(android.location.Location location){
+        latitudeEdt.setText(String.valueOf(location.getLatitude()));
+        longitudeEdt.setText(String.valueOf(location.getLongitude()));
+
+        if (location.hasAltitude()){
+            altitudeEdt.setText(String.valueOf(location.getAltitude()));
+        }
+        else{
+            altitudeEdt.setText("Not Available");
+        }
+
     }
 
 

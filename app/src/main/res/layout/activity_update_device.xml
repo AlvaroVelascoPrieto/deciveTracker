@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:backgroundTint="#FFEB3B"
     android:orientation="vertical"
     tools:context=".UpdateDeviceActivity">
 
@@ -22,10 +23,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:hint="Enter year"
-        android:focusable="false"
         android:clickable="true"
-        />
+        android:focusable="false"
+        android:hint="Enter year" />
 
     <!--edit text to display device model-->
     <EditText
@@ -63,8 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="Device type:"
-        />
+        android:text="Device type:" />
 
     <!-- Spinner Element -->
     <Spinner
@@ -74,22 +73,42 @@
         android:layout_margin="10dp"
         android:prompt="@string/spinner_title" />
 
-    <!--button for updating our device-->
-    <Button
-        android:id="@+id/idBtnUpdateDevice"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="Update Device"
-        android:textAllCaps="false" />
+        android:orientation="horizontal"
+        android:weightSum="2">
 
-    <!--button for deleting our device-->
+        <!--button for updating our device-->
+        <Button
+            android:id="@+id/idBtnUpdateDevice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="3dp"
+            android:layout_margin="10dp"
+            android:text="Update Location"
+            android:backgroundTint="#9C27B0"
+            android:textAllCaps="false" />
+
+        <!--button for deleting our device-->
+        <Button
+            android:id="@+id/idBtnDelete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="3dp"
+            android:layout_margin="10dp"
+            android:text="Delete Location"
+            android:textAllCaps="false" />
+    </LinearLayout>
     <Button
-        android:id="@+id/idBtnDelete"
+        android:id="@+id/idBtnOpenMap"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="Delete Device"
+        android:text="Open in Maps"
+        android:backgroundTint="#FFC107"
         android:textAllCaps="false" />
 
 </LinearLayout>
