@@ -4,46 +4,53 @@ public class DeciveModal {
 
     // variables for our deviceName,
     // description, tracks and duration, id.
-    private String deviceName;
-    private String deviceYear;
-    private String deviceModel;
-    private String deviceType;
+    private String locationName;
+    private String logDate;
+    private String latitude;
+
+    private String longitude;
+
+    private String altitude;
+    private String locationType;
     private int id;
 
     // creating getter and setter methods
-    public String getDeviceName() { return deviceName; }
+    public String getLocationName() { return locationName; }
 
     public void setdeviceName(String deviceName)
     {
-        this.deviceName = deviceName;
+        this.locationName = deviceName;
     }
 
-    public String getdeviceYear()
+    public String getLogDate()
     {
-        return deviceYear;
+        return logDate;
     }
 
-    public void setdeviceYear(String deviceYear)
+    public void setlogDate(String deviceYear)
     {
-        this.deviceYear = deviceYear;
+        this.logDate = deviceYear;
     }
 
-    public String getdeviceModel() { return deviceModel; }
+    public String getLatitude() { return latitude; }
 
-    public void setdeviceModel(String deviceModel)
+    public String getLongitude() { return longitude; }
+
+    public String getAltitude() { return altitude; }
+
+    public void setLatitude(String latitude)
     {
-        this.deviceModel = deviceModel;
+        this.latitude = latitude;
     }
 
     public String getdeviceType()
     {
-        return deviceType;
+        return locationType;
     }
 
-    public void
-    setdeviceType(String deviceType)
+    public void setLocationtype(String locationType)
     {
-        this.deviceType = deviceType;
+        this.locationType = locationType;
     }
 
     public int getId() { return id; }
@@ -51,14 +58,18 @@ public class DeciveModal {
     public void setId(int id) { this.id = id; }
 
     // constructor
-    public DeciveModal(String deviceName,
-                       String deviceYear,
-                       String deviceModel,
+    public DeciveModal(String locationName,
+                       String logDate,
+                       String latitude,
+                       String longitude,
+                       String altitude,
                        String deviceType)
     {
-        this.deviceName = deviceName;
-        this.deviceYear = deviceYear;
-        this.deviceModel = deviceModel;
-        this.deviceType = deviceType;
+        this.locationName = locationName;
+        this.logDate = logDate;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.altitude = altitude;
+        this.locationType = deviceType;
     }
 }

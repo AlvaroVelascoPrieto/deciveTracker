@@ -1,65 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    android:layout_width="match_parent"
+<ScrollView android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".UpdateDeviceActivity">
+        tools:context=".MainActivity">
 
-        <!--Edit text to enter course name-->
-        <EditText
-            android:id="@+id/idEdtDeviceName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:hint="Enter Device Name" />
-
-        <!--edit text to enter course duration-->
-        <EditText
-            android:id="@+id/idEdtDeviceYear"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:hint="Enter year"
-            android:focusable="false"
-            android:clickable="true"
-            />
-
-        <!--edit text to display course tracks-->
-        <EditText
-            android:id="@+id/idEdtDeviceModel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:hint="Enter Device Model" />
-
-        <!-- Text Label -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="Device type:"
-            />
-
-        <!-- Spinner Element -->
-        <Spinner
-            android:id="@+id/idSpinerDeviceType"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:prompt="@string/spinner_title" />
-
-        <!--button for updating our course-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="2">
+            <!--Edit text to enter device name-->
+            <EditText
+                android:id="@+id/idEdtLandmarkName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="-5dp"
+                android:layout_margin="10dp"
+                android:hint="Enter location name" />
+
+            <!--edit text to enter device year-->
+            <EditText
+                android:id="@+id/idEdtlogDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="-5dp"
+                android:layout_margin="10dp"
+                android:hint="Enter date"
+                android:focusable="false"
+                android:clickable="true"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3">
+            <!--edit text to display device model-->
+            <EditText
+                android:id="@+id/idEdtLongitude"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="-3dp"
+                android:layout_margin="10dp"
+                android:hint="Longitude" />
+
+            <EditText
+                android:id="@+id/idEdtLatitude"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="-3dp"
+                android:layout_margin="10dp"
+                android:hint="Latitude" />
+
+            <EditText
+                android:id="@+id/idEdtAltitude"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="-3dp"
+                android:layout_margin="10dp"
+                android:hint="Altitude" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/idBtnGetLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:backgroundTint="#4CAF50"
+            android:text="Get Location"
+            android:textAllCaps="false" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <!-- Text Label -->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="3dp"
+                android:layout_margin="10dp"
+                android:text="Location category:"
+                />
+
+            <!-- Spinner Element -->
+            <Spinner
+                android:id="@+id/idSpinerDeviceType"
+                android:layout_width="400dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="3dp"
+                android:layout_margin="10dp"
+                android:prompt="@string/spinner_title" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <!--button for adding new course-->
             <Button
                 android:id="@+id/idBtnUpdateDevice"
                 android:layout_width="0dp"
@@ -67,10 +122,10 @@
                 android:layout_weight="1"
                 android:padding="3dp"
                 android:layout_margin="10dp"
-                android:text="Update Device"
+                android:text="Update Location"
                 android:textAllCaps="false" />
 
-            <!--button for deleting our course-->
+            <!--new button for opening our course list activity-->
             <Button
                 android:id="@+id/idBtnDelete"
                 android:layout_width="0dp"
@@ -78,7 +133,7 @@
                 android:layout_weight="1"
                 android:padding="3dp"
                 android:layout_margin="10dp"
-                android:text="Delete Device"
+                android:text="Delete Location"
                 android:textAllCaps="false" />
         </LinearLayout>
 

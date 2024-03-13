@@ -16,11 +16,11 @@
 
         <!--text view for our device name-->
         <TextView
-            android:id="@+id/idTVDeviceName"
+            android:id="@+id/idTVLocationName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="3dp"
-            android:text="Device Name"
+            android:text="Location Name"
             android:textColor="@color/black" />
 
         <LinearLayout
@@ -31,36 +31,59 @@
 
             <!--text view for our device tracks-->
             <TextView
-                android:id="@+id/idTVDeviceYear"
+                android:id="@+id/idTVLogYear"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="3dp"
-                android:text="Device Year"
+                android:text="Log Year"
                 android:textColor="@color/black" />
 
 
             <!--text view for our device duration-->
             <TextView
-                android:id="@+id/idTVDeviceModel"
+                android:id="@+id/idTVLocationType"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="3dp"
-                android:text="Device Model"
+                android:text="Location Type"
                 android:textColor="@color/black" />
 
         </LinearLayout>
-
-        <!--text view for our device description-->
-        <TextView
-            android:id="@+id/idTVDeviceType"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="3dp"
-            android:text="Device Type"
-            android:textColor="@color/black" />
+            android:orientation="horizontal"
+            android:weightSum="3">
+            <!--text view for our device description-->
+            <TextView
+                android:id="@+id/idTVLatitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="3dp"
+                android:text="Latitude"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/idTVLongitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="3dp"
+                android:text="Longitude"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/idTVAltitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="3dp"
+                android:text="Altitude"
+                android:textColor="@color/black" />
+        </LinearLayout>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

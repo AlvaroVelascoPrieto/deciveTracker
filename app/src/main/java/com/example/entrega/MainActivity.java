@@ -1,5 +1,7 @@
 package com.example.entrega;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -9,22 +11,25 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 
-import androidx.core.app.ActivityCompat;
+import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.entrega.controller.DBHandler;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -33,31 +38,44 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     // creating variables for our edittext, button and dbhandler
-    private EditText deviceNameEdt, deviceYearEdt, deviceModelEdt;
-    private Spinner deviceTypeSpinner;
-    private Button addDeviceBtn, seeDevicesBtn;
+    private EditText landmarkNameEdt, logDateEdt, longitudeEdt, latitudeEdt, altitudeEdt;
+    private Spinner locationTypeSpinner;
+    private Button addDeviceBtn, seeDevicesBtn, getGetLocationButton;
     private DBHandler dbHandler;
+    public static final int DEFAULT_UPDATE_INTERVAL = 30;
+    public static final int MAXIMUM_UPDATE_INTERVAL = 5;
+    private static final int PERMISSIONS_FINE_LOCATION = 99;
+    //Google's API for location services
+    FusedLocationProviderClient fusedLocationProviderClient;
+    LocationRequest locationRequest;
+    TextView latitudeTV, altitudeTV, accuracyTV, addressTV;
 
+    Button getLocButton;
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         // initializing all our variables.
-        deviceNameEdt = findViewById(R.id.idEdtDeviceName);
-        deviceYearEdt = findViewById(R.id.idEdtDeviceYear);
-        deviceModelEdt = findViewById(R.id.idEdtDeviceModel);
-        deviceTypeSpinner = findViewById(R.id.idSpinerDeviceType);
+        landmarkNameEdt = findViewById(R.id.idEdtLandmarkName);
+        logDateEdt = findViewById(R.id.idEdtlogDate);
+        longitudeEdt = findViewById(R.id.idEdtLongitude);
+        latitudeEdt = findViewById(R.id.idEdtLatitude);
+        altitudeEdt = findViewById(R.id.idEdtAltitude);
+        getGetLocationButton = findViewById(R.id.idBtnGetLocation);
+        locationTypeSpinner = findViewById(R.id.idSpinerDeviceType);
         addDeviceBtn = findViewById(R.id.idBtnAddDevice);
         seeDevicesBtn = findViewById(R.id.idBtnSeeDevices);
 
         // Spinner Drop down elements
         List<String> categories = new ArrayList<String>();
-        categories.add("Phone");
-        categories.add("Laptop");
-        categories.add("Tablet");
-        categories.add("Workstation");
-        categories.add("Home PC");
+        categories.add("Landmark");
+        categories.add("Views");
+        categories.add("Entertainment");
+        categories.add("Home");
+        categories.add("Work");
 
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
@@ -66,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // attaching data adapter to spinner
-        deviceTypeSpinner.setAdapter(dataAdapter);
+        locationTypeSpinner.setAdapter(dataAdapter);
 
 
         // creating a new dbhandler class
@@ -74,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         dbHandler = new DBHandler(MainActivity.this);
 
 
-        deviceYearEdt.setOnClickListener(new View.OnClickListener() {
+        logDateEdt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePicker(MainActivity.this);
@@ -86,10 +104,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 // below line is to get data from all edit text fields.
-                String deviceName = deviceNameEdt.getText().toString();
-                String deviceYear = deviceYearEdt.getText().toString();
-                String deviceModel = deviceModelEdt.getText().toString();
-                String deviceType = deviceTypeSpinner.getSelectedItem().toString();
+                String landmarkName = landmarkNameEdt.getText().toString();
+                String logDate = logDateEdt.getText().toString();
+                String latitude = longitudeEdt.getText().toString();
+                String longitude = longitudeEdt.getText().toString();
+                String altitude = altitudeEdt.getText().toString();
+                String locationType = locationTypeSpinner.getSelectedItem().toString();
 
                 // Notification Channel ID. You can create multiple channels if needed.
                 String channelId = "my_channel_id";
@@ -114,27 +134,29 @@ public class MainActivity extends AppCompatActivity {
                 // Now, you can create and show notifications using this channel
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, channelId)
                         .setSmallIcon(R.drawable.ic_launcher_foreground)
-                        .setContentTitle("Dispositivo añadido")
-                        .setContentText(deviceName);
+                        .setContentTitle("Lugar añadido")
+                        .setContentText(landmarkName);
 
                 // Show the notification
                 notificationManager.notify(1, builder.build());
 
                 // validating if the text fields are empty or not.
-                if (deviceName.isEmpty() || deviceYear.isEmpty() || deviceModel.isEmpty() || deviceType.isEmpty()) {
+                if (landmarkName.isEmpty() || logDate.isEmpty() || longitude.isEmpty() || latitude.isEmpty() || altitude.isEmpty() || locationType.isEmpty()) {
                     Toast.makeText(MainActivity.this, "Please enter all the data..", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 // on below line we are calling a method to add new
                 // course to sqlite data and pass all our values to it.
-                dbHandler.addNewDevice(deviceName, deviceYear, deviceModel, deviceType);
+                dbHandler.addNewLocation(landmarkName, logDate, longitude, latitude, altitude, locationType);
 
                 // after adding the data we are displaying a toast message.
-                Toast.makeText(MainActivity.this, "System has been added.", Toast.LENGTH_SHORT).show();
-                deviceNameEdt.setText("");
-                deviceModelEdt.setText("");
-                deviceYearEdt.setText("");
+                Toast.makeText(MainActivity.this, "Place has been added.", Toast.LENGTH_SHORT).show();
+                landmarkNameEdt.setText("");
+                longitudeEdt.setText("");
+                latitudeEdt.setText("");
+                altitudeEdt.setText("");
+                logDateEdt.setText("");
             }
         });
 
@@ -153,6 +175,19 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         );
+
+        //Location request settings
+        locationRequest = new LocationRequest();
+        locationRequest.setInterval(1000 * DEFAULT_UPDATE_INTERVAL);
+        locationRequest.setFastestInterval(1000 * MAXIMUM_UPDATE_INTERVAL);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        getGetLocationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateGPS();
+            }
+        });
     }
     private void showDatePicker(Context context) {
         // Get current year, month, and day
@@ -165,7 +200,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         // Update the EditText with the selected year
-                        deviceYearEdt.setText(String.valueOf(year));
+                        String date = String.valueOf(year) + "/" + String.valueOf(month) + "/" + String.valueOf(dayOfMonth);
+                        logDateEdt.setText(date);
                     }
                 }, year, calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 
@@ -174,5 +210,54 @@ public class MainActivity extends AppCompatActivity {
 
         // Show the DatePickerDialog
         datePickerDialog.show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case PERMISSIONS_FINE_LOCATION:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    updateGPS();
+                }
+                else{
+                    Toast.makeText(this, "Location permission not granted", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                break;
+        }
+    }
+
+    private void updateGPS(){
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        if (this.checkCallingOrSelfPermission("android.permission.ACCESS_FINE_LOCATION") == PackageManager.PERMISSION_GRANTED){
+            //User provided permissions
+            //Get last location (not current) last stored one
+            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<android.location.Location>() {
+                @Override
+                public void onSuccess(android.location.Location location) {
+                    //We got the location we have to update
+                    updateUI(location);
+                }
+            });
+        }
+        else{
+            if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.M){
+                requestPermissions (new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_FINE_LOCATION);
+            }
+        }
+    }
+
+    private void updateUI(android.location.Location location){
+        latitudeEdt.setText(String.valueOf(location.getLatitude()));
+        longitudeEdt.setText(String.valueOf(location.getLongitude()));
+
+        if (location.hasAltitude()){
+            altitudeEdt.setText(String.valueOf(location.getAltitude()));
+        }
+        else{
+            altitudeEdt.setText("Not Available");
+        }
+
     }
 }

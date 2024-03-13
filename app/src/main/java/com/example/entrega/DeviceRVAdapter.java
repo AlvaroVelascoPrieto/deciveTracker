@@ -38,9 +38,11 @@ public class DeviceRVAdapter extends RecyclerView.Adapter<DeviceRVAdapter.ViewHo
         // on below line we are setting data
         // to our views of recycler view item.
         DeciveModal modal = courseModalArrayList.get(position);
-        holder.courseNameTV.setText(modal.getDeviceName());
-        holder.deviceYearTV.setText(modal.getdeviceYear());
-        holder.deviceModelTV.setText(modal.getdeviceModel());
+        holder.locationNameTV.setText(modal.getLocationName());
+        holder.locationTypeTV.setText(modal.getdeviceType());
+        holder.latitudeTV.setText(modal.getLatitude());
+        holder.longitudeTV.setText(modal.getLongitude());
+        holder.altitudeTV.setText(modal.getAltitude());
         holder.deviceTypeTV.setText(modal.getdeviceType());
 
         // below line is to add on click listener for our recycler view item.
@@ -52,10 +54,12 @@ public class DeviceRVAdapter extends RecyclerView.Adapter<DeviceRVAdapter.ViewHo
                 Intent i = new Intent(context, UpdateDeviceActivity.class);
 
                 // below we are passing all our values.
-                i.putExtra("name", modal.getDeviceName());
-                i.putExtra("year", modal.getdeviceYear());
+                i.putExtra("name", modal.getLocationName());
                 i.putExtra("type", modal.getdeviceType());
-                i.putExtra("model", modal.getdeviceModel());
+                i.putExtra("latitude", modal.getLatitude());
+                i.putExtra("longitude", modal.getLatitude());
+                i.putExtra("altitude", modal.getAltitude());
+                i.putExtra("date", modal.getLogDate());
 
 
                 // starting our activity.
@@ -73,15 +77,17 @@ public class DeviceRVAdapter extends RecyclerView.Adapter<DeviceRVAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         // creating variables for our text views.
-        private TextView courseNameTV, deviceYearTV, deviceModelTV, deviceTypeTV;
+        private TextView locationNameTV, locationTypeTV, latitudeTV, deviceTypeTV, longitudeTV, altitudeTV;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             // initializing our text views
-            courseNameTV = itemView.findViewById(R.id.idTVDeviceName);
-            deviceYearTV = itemView.findViewById(R.id.idTVDeviceType);
-            deviceModelTV = itemView.findViewById(R.id.idTVDeviceModel);
-            deviceTypeTV = itemView.findViewById(R.id.idTVDeviceYear);
+            locationNameTV = itemView.findViewById(R.id.idTVLocationName);
+            locationTypeTV = itemView.findViewById(R.id.idTVLocationType);
+            latitudeTV = itemView.findViewById(R.id.idTVLatitude);
+            longitudeTV = itemView.findViewById(R.id.idTVLongitude);
+            altitudeTV = itemView.findViewById(R.id.idTVAltitude);
+            deviceTypeTV = itemView.findViewById(R.id.idTVLogYear);
         }
     }
 }

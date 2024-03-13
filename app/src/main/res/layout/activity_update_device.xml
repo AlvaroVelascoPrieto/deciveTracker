@@ -7,24 +7,10 @@
     android:orientation="vertical"
     tools:context=".UpdateDeviceActivity">
 
-    <!-- Toolbar -->
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/Widget.Design.AppBarLayout">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/Widget.AppCompat.PopupMenu"/>
-
-    </com.google.android.material.appbar.AppBarLayout>
 
     <!--Edit text to enter device name-->
     <EditText
-        android:id="@+id/idEdtDeviceName"
+        android:id="@+id/idEdtLandmarkName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -32,7 +18,7 @@
 
     <!--edit text to enter device year-->
     <EditText
-        android:id="@+id/idEdtDeviceYear"
+        android:id="@+id/idEdtlogDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -43,11 +29,34 @@
 
     <!--edit text to display device model-->
     <EditText
-        android:id="@+id/idEdtDeviceModel"
+        android:id="@+id/idEdtLongitude"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:hint="Enter Device Model" />
+        android:hint="Longitude" />
+
+    <EditText
+        android:id="@+id/idEdtLatitude"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="Latitude" />
+
+    <EditText
+        android:id="@+id/idEdtAltitude"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="Altitude" />
+
+    <Button
+        android:id="@+id/idBtnGetLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:backgroundTint="#4CAF50"
+        android:text="Get Location"
+        android:textAllCaps="false" />
 
     <!-- Text Label -->
     <TextView

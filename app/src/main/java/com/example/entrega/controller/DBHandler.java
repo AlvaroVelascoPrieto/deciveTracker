@@ -29,13 +29,17 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String NAME_COL = "name";
 
     // below variable id for our Device duration column.
-    private static final String DURATION_COL = "duration";
+    private static final String LOG_DATE = "date";
 
     // below variable for our Device description column.
-    private static final String DESCRIPTION_COL = "description";
+    private static final String LATITUDE = "latitude";
+
+    private static final String LONGITUDE = "longitude";
+
+    private static final String ALTITUDE = "altitude";
 
     // below variable is for our Device tracks column.
-    private static final String TRACKS_COL = "tracks";
+    private static final String LANDMARK_TYPE = "type";
 
     // creating a constructor for our database handler.
     public DBHandler(Context context) {
@@ -52,9 +56,11 @@ public class DBHandler extends SQLiteOpenHelper {
         String query = "CREATE TABLE " + TABLE_NAME + " ("
                 + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + NAME_COL + " TEXT,"
-                + DURATION_COL + " TEXT,"
-                + DESCRIPTION_COL + " TEXT,"
-                + TRACKS_COL + " TEXT)";
+                + LOG_DATE + " TEXT,"
+                + LATITUDE + " TEXT,"
+                + LONGITUDE + " TEXT,"
+                + ALTITUDE + " TEXT,"
+                + LANDMARK_TYPE + " TEXT)";
 
         // at last we are calling a exec sql
         // method to execute above sql query
@@ -62,7 +68,7 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     // this method is use to add new Device to our sqlite database.
-    public void addNewDevice(String DeviceName, String DeviceDuration, String DeviceDescription, String DeviceTracks) {
+    public void addNewLocation(String DeviceName, String logDate, String longitude, String latitude, String altitude, String landmarkType) {
 
         // on below line we are creating a variable for
         // our sqlite database and calling writable method
@@ -76,9 +82,11 @@ public class DBHandler extends SQLiteOpenHelper {
         // on below line we are passing all values
         // along with its key and value pair.
         values.put(NAME_COL, DeviceName);
-        values.put(DURATION_COL, DeviceDuration);
-        values.put(DESCRIPTION_COL, DeviceDescription);
-        values.put(TRACKS_COL, DeviceTracks);
+        values.put(LOG_DATE, logDate);
+        values.put(LATITUDE, latitude);
+        values.put(LONGITUDE, longitude);
+        values.put(ALTITUDE, altitude);
+        values.put(LANDMARK_TYPE, landmarkType);
 
         // after adding all values we are passing
         // content values to our table.
@@ -106,9 +114,12 @@ public class DBHandler extends SQLiteOpenHelper {
             do {
                 // on below line we are adding the data from cursor to our array list.
                 DeviceModalArrayList.add(new DeciveModal(cursorDevices.getString(1),
-                        cursorDevices.getString(4),
                         cursorDevices.getString(2),
-                        cursorDevices.getString(3)));
+                        cursorDevices.getString(3),
+                        cursorDevices.getString(4),
+                        cursorDevices.getString(5),
+                        cursorDevices.getString(6)
+                ));
             } while (cursorDevices.moveToNext());
             // moving our cursor to next.
         }
@@ -119,8 +130,8 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     // below is the method for updating our Devices
-    public void updateDevice(String originalDeviceName, String DeviceName, String DeviceDescription,
-                             String DeviceTracks, String DeviceDuration) {
+    public void updateDevice(String originalLocationName, String LocationName, String Latitude, String Longitude, String Altitude,
+                             String LocationType, String logDate) {
 
         // calling a method to get writable database.
         SQLiteDatabase db = this.getWritableDatabase();
@@ -128,14 +139,16 @@ public class DBHandler extends SQLiteOpenHelper {
 
         // on below line we are passing all values
         // along with its key and value pair.
-        values.put(NAME_COL, DeviceName);
-        values.put(DURATION_COL, DeviceDuration);
-        values.put(DESCRIPTION_COL, DeviceDescription);
-        values.put(TRACKS_COL, DeviceTracks);
+        values.put(NAME_COL, LocationName);
+        values.put(LOG_DATE, logDate);
+        values.put(LATITUDE, Latitude);
+        values.put(LONGITUDE, Longitude);
+        values.put(ALTITUDE, Altitude);
+        values.put(LANDMARK_TYPE, LocationType);
 
         // on below line we are calling a update method to update our database and passing our values.
         // and we are comparing it with name of our Device which is stored in original name variable.
-        db.update(TABLE_NAME, values, "name=?", new String[]{originalDeviceName});
+        db.update(TABLE_NAME, values, "name=?", new String[]{originalLocationName});
         db.close();
     }
 
