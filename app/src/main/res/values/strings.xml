@@ -1,4 +1,20 @@
 <resources>
     <string name="app_name">LocationTracker</string>
-    <string name="spinner_title">Device Type</string>
+    <string name="spinner_title">Location Type</string>
+    <string name="locationName">Location Name</string>
+    <string name="date">Date</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="altitude">Altitude</string>
+    <string name="getLocation">Get Location</string>
+    <string name="locationType">Location Type</string>
+    <string name="addLocation">Add Location</string>
+    <string name="seeLocations">Show Locations</string>
+    <string name="openInMaps">Open in Maps</string>
+    <string name="deleteLocation">Delete Location</string>
+    <string name="updateLocation">Update Location</string>
+    <string name="espanol">Spanish</string>
+    <string name="english">English</string>
+    <string name="language">Language</string>
+    <string name="applyChanges">Apply Changes</string>
 </resources>

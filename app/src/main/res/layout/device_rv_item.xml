@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="3dp"
-            android:text="Location Name"
+            android:text="@string/locationName"
             android:textColor="@color/black" />
 
         <LinearLayout
@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="3dp"
-                android:text="Log Year"
+                android:text="@string/date"
                 android:textColor="@color/black" />
 
 
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="3dp"
-                android:text="Location Type"
+                android:text="@string/locationType"
                 android:textColor="@color/black" />
 
         </LinearLayout>
@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="3dp"
-                android:text="Latitude"
+                android:text="@string/latitude"
                 android:textColor="@color/black" />
 
             <TextView
@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="3dp"
-                android:text="Longitude"
+                android:text="@string/longitude"
                 android:textColor="@color/black" />
 
             <TextView
@@ -81,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="3dp"
-                android:text="Altitude"
+                android:text="@string/altitude"
                 android:textColor="@color/black" />
         </LinearLayout>
     </LinearLayout>

@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity"
+    tools:context=".view.MainActivity"
     tools:ignore="ExtraText">
+
 
     <!--Edit text to enter device name-->
     <EditText
@@ -14,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:hint="Enter location name" />
+        android:hint="@string/locationName" />
 
     <!--edit text to enter device year-->
     <EditText
@@ -22,10 +23,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:hint="Enter date"
+        android:hint="@string/date"
         android:focusable="false"
-        android:clickable="true"
-    />
+        android:clickable="true" />
 
     <!--edit text to display device model-->
     <EditText
@@ -33,21 +33,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:hint="Longitude" />
+        android:hint="@string/longitude" />
 
     <EditText
         android:id="@+id/idEdtLatitude"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:hint="Latitude" />
+        android:hint="@string/latitude" />
 
     <EditText
         android:id="@+id/idEdtAltitude"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:hint="Altitude" />
+        android:hint="@string/altitude" />
 
     <Button
         android:id="@+id/idBtnGetLocation"
@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:backgroundTint="#4CAF50"
-        android:text="Get Location"
+        android:text="@string/getLocation"
         android:textAllCaps="false" />
 
     <!-- Text Label -->
@@ -63,7 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="Location category:"
+        android:text="@string/locationType"
         />
 
     <!-- Spinner Element -->
@@ -80,7 +80,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="Add Location"
+        android:text="@string/addLocation"
         android:textAllCaps="false" />
 
     <!--new button for opening our device list activity-->
@@ -90,7 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:backgroundTint="#9C27B0"
-        android:text="See all locations"
+        android:text="@string/seeLocations"
         android:textAllCaps="false" />
 
 </LinearLayout>

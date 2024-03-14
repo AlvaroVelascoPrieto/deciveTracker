@@ -1,4 +1,4 @@
-package com.example.entrega;
+package com.example.entrega.view;
 
 public class DeciveModal {
 

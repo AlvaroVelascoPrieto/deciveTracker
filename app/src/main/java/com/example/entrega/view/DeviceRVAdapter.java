@@ -1,4 +1,4 @@
-package com.example.entrega;
+package com.example.entrega.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.entrega.R;
 
 import java.util.ArrayList;
 

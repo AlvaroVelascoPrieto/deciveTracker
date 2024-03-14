@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="#FFEB3B"
     android:orientation="vertical"
-    tools:context=".UpdateDeviceActivity">
+    tools:context=".view.UpdateDeviceActivity">
 
 
     <!--Edit text to enter device name-->
@@ -15,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:hint="Enter Device Name" />
+        android:hint="@string/locationName" />
 
     <!--edit text to enter device year-->
     <EditText
@@ -25,7 +24,7 @@
         android:layout_margin="10dp"
         android:clickable="true"
         android:focusable="false"
-        android:hint="Enter year" />
+        android:hint="@string/date" />
 
     <!--edit text to display device model-->
     <EditText
@@ -33,21 +32,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:hint="Longitude" />
+        android:hint="@string/longitude" />
 
     <EditText
         android:id="@+id/idEdtLatitude"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:hint="Latitude" />
+        android:hint="@string/latitude" />
 
     <EditText
         android:id="@+id/idEdtAltitude"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:hint="Altitude" />
+        android:hint="@string/altitude" />
 
     <Button
         android:id="@+id/idBtnGetLocation"
@@ -55,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:backgroundTint="#4CAF50"
-        android:text="Get Location"
+        android:text="@string/getLocation"
         android:textAllCaps="false" />
 
     <!-- Text Label -->
@@ -63,7 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="Device type:" />
+        android:text="@string/locationType" />
 
     <!-- Spinner Element -->
     <Spinner
@@ -87,7 +86,7 @@
             android:layout_weight="1"
             android:padding="3dp"
             android:layout_margin="10dp"
-            android:text="Update Location"
+            android:text="@string/updateLocation"
             android:backgroundTint="#9C27B0"
             android:textAllCaps="false" />
 
@@ -99,7 +98,7 @@
             android:layout_weight="1"
             android:padding="3dp"
             android:layout_margin="10dp"
-            android:text="Delete Location"
+            android:text="@string/deleteLocation"
             android:textAllCaps="false" />
     </LinearLayout>
     <Button
@@ -107,7 +106,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="Open in Maps"
+        android:text="@string/openInMaps"
         android:backgroundTint="#FFC107"
         android:textAllCaps="false" />
 

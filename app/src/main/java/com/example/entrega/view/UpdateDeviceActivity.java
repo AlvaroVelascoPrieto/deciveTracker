@@ -1,6 +1,4 @@
-package com.example.entrega;
-
-import static com.example.entrega.MainActivity.PERMISSIONS_FINE_LOCATION;
+package com.example.entrega.view;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -15,7 +13,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -26,10 +23,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.entrega.R;
 import com.example.entrega.controller.DBHandler;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
@@ -40,7 +37,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 public class UpdateDeviceActivity extends AppCompatActivity {
 
@@ -48,7 +44,6 @@ public class UpdateDeviceActivity extends AppCompatActivity {
     // variables for our edit text, button, strings and dbhandler class.
     private EditText locationNameEdt, logDateEdt, latitudeEdt, longitudeEdt, altitudeEdt;
     private Spinner locationTypeSpinner;
-    private Button updateLocationBtn, deleteLocationeBtn, getLocation, openInMaps;
     private DBHandler dbHandler;
     String locationName, longitude, latitude, altitude, logDate, locationType;
     FusedLocationProviderClient fusedLocationProviderClient;
@@ -64,15 +59,7 @@ public class UpdateDeviceActivity extends AppCompatActivity {
 
         // Initializing toolbar
 
-        Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setDisplayShowCustomEnabled(true);
-        androidx.appcompat.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setIcon(R.drawable.ic_launcher);
-        actionBar.setTitle("Location");
-        actionBar.setDisplayShowTitleEnabled(true);
-        // methods to display the icon in the ActionBar
-        actionBar.setDisplayUseLogoEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(true);
+
 
         // initializing all our variables.
         locationNameEdt = findViewById(R.id.idEdtLandmarkName);
@@ -80,11 +67,11 @@ public class UpdateDeviceActivity extends AppCompatActivity {
         latitudeEdt = findViewById(R.id.idEdtLatitude);
         longitudeEdt = findViewById(R.id.idEdtLongitude);
         altitudeEdt = findViewById(R.id.idEdtAltitude);
-        getLocation = findViewById(R.id.idBtnGetLocation);
+        Button getLocation = findViewById(R.id.idBtnGetLocation);
         locationTypeSpinner = findViewById(R.id.idSpinerDeviceType);
-        updateLocationBtn = findViewById(R.id.idBtnUpdateDevice);
-        deleteLocationeBtn = findViewById(R.id.idBtnDelete);
-        openInMaps = findViewById(R.id.idBtnOpenMap);
+        Button updateLocationBtn = findViewById(R.id.idBtnUpdateDevice);
+        Button deleteLocationeBtn = findViewById(R.id.idBtnDelete);
+        Button openInMaps = findViewById(R.id.idBtnOpenMap);
 
 
         // on below line we are initializing our dbhandler class.

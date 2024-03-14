@@ -1,4 +1,4 @@
-package com.example.entrega;
+package com.example.entrega.view;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -7,13 +7,19 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.core.app.NotificationCompat;
 
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -24,7 +30,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
+import com.example.entrega.R;
 import com.example.entrega.controller.DBHandler;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
@@ -34,13 +42,15 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String DEFAULT_LANGUAGE = "en";
     // creating variables for our edittext, button and dbhandler
     private EditText landmarkNameEdt, logDateEdt, longitudeEdt, latitudeEdt, altitudeEdt;
     private Spinner locationTypeSpinner;
-    private Button addDeviceBtn, seeDevicesBtn, getGetLocationButton;
     private DBHandler dbHandler;
     public static final int DEFAULT_UPDATE_INTERVAL = 30;
     public static final int MAXIMUM_UPDATE_INTERVAL = 5;
@@ -55,8 +65,31 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        // Set default values if they are not already set
+        if (!preferences.contains("selected_language")) {
+            preferences.edit().putString("selected_language", DEFAULT_LANGUAGE).apply();
+        }
+
+        // Retrieve the saved language and dark mode preferences
+        String selectedLanguage = preferences.getString("selected_language", DEFAULT_LANGUAGE);
+
+        // Set the saved language
+        setLocale(selectedLanguage);
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+
+        Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        androidx.appcompat.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setIcon(R.drawable.ic_launcher);
+        actionBar.setTitle("Location Tracker");
+        actionBar.setDisplayShowTitleEnabled(true);
+        // methods to display the icon in the ActionBar
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
 
         // initializing all our variables.
         landmarkNameEdt = findViewById(R.id.idEdtLandmarkName);
@@ -64,10 +97,13 @@ public class MainActivity extends AppCompatActivity {
         longitudeEdt = findViewById(R.id.idEdtLongitude);
         latitudeEdt = findViewById(R.id.idEdtLatitude);
         altitudeEdt = findViewById(R.id.idEdtAltitude);
-        getGetLocationButton = findViewById(R.id.idBtnGetLocation);
+        Button getGetLocationButton = findViewById(R.id.idBtnGetLocation);
         locationTypeSpinner = findViewById(R.id.idSpinerDeviceType);
-        addDeviceBtn = findViewById(R.id.idBtnAddDevice);
-        seeDevicesBtn = findViewById(R.id.idBtnSeeDevices);
+        Button addDeviceBtn = findViewById(R.id.idBtnAddDevice);
+        Button seeDevicesBtn = findViewById(R.id.idBtnSeeDevices);
+
+
+
 
         // Spinner Drop down elements
         List<String> categories = new ArrayList<String>();
@@ -189,6 +225,35 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void setLocale(String language) {
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        Resources resources = getResources();
+        Configuration configuration = resources.getConfiguration();
+        configuration.setLocale(locale);
+        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+    }
+
+    // Method to create the toolbar menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    // Method to handle clicks on toolbar items
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_settings) {
+            // Handle the share action here
+            Intent i = new Intent(MainActivity.this, Preferences.class);
+            startActivity(i);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void showDatePicker(Context context) {
         // Get current year, month, and day
         Calendar calendar = Calendar.getInstance();

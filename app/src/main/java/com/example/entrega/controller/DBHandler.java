@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.entrega.DeciveModal;
+import com.example.entrega.view.DeciveModal;
 
 import java.util.ArrayList;
 

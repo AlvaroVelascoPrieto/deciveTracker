@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LocationTracker</string>
+    <string name="spinner_title">Tipo de Ubicación</string>
+    <string name="locationName">Nombre de Ubicación</string>
+    <string name="date">Fecha</string>
+    <string name="latitude">Latitud</string>
+    <string name="longitude">Longitud</string>
+    <string name="altitude">Altitud</string>
+    <string name="getLocation">Obtener Ubicación</string>
+    <string name="locationType">Tipo de Ubicación</string>
+    <string name="addLocation">Añadir Ubicación</string>
+    <string name="seeLocations">Mostrar Ubicaciones</string>
+    <string name="openInMaps">Abrir en Maps</string>
+    <string name="deleteLocation">Borrar Ubicación</string>
+    <string name="updateLocation">Actualizar Ubicación</string>
+    <string name="espanol">Español</string>
+    <string name="english">Inglés</string>
+    <string name="language">Lemnguaje</string>
+    <string name="applyChanges">Aplicar Cambios</string>
+</resources>

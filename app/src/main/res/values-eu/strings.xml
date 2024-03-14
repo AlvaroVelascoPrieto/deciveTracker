@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LocationTracker</string>
+    <string name="spinner_title">Sailkatu</string>
+    <string name="locationName">kokapen Izena</string>
+    <string name="date">Data</string>
+    <string name="latitude">Latitudea</string>
+    <string name="longitude">Longitudea</string>
+    <string name="altitude">Altitudea</string>
+    <string name="getLocation">Kokapena eskuratu</string>
+    <string name="locationType">Sailkatu</string>
+    <string name="addLocation">Kokapena gehitu</string>
+    <string name="seeLocations">Kokapena Ikusi</string>
+    <string name="openInMaps">MAPSen ireki</string>
+    <string name="deleteLocation">Kokapena Ezabatu</string>
+    <string name="updateLocation">Kokapena Eguneratu</string>
+    <string name="espanol">Gaztelania</string>
+    <string name="english">Ingelera</string>
+    <string name="language">Hizkuntza</string>
+    <string name="applyChanges">Aldaketak Berretsi</string>
+</resources>

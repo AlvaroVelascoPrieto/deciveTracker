@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".MainActivity">
+        tools:context=".view.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
                 android:layout_weight="1"
                 android:padding="-5dp"
                 android:layout_margin="10dp"
-                android:hint="Enter location name" />
+                android:hint="@string/locationName" />
 
             <!--edit text to enter device year-->
             <EditText
@@ -34,7 +34,7 @@
                 android:layout_weight="1"
                 android:padding="-5dp"
                 android:layout_margin="10dp"
-                android:hint="Enter date"
+                android:hint="@string/date"
                 android:focusable="false"
                 android:clickable="true"
                 />
@@ -53,7 +53,7 @@
                 android:layout_weight="1"
                 android:padding="-3dp"
                 android:layout_margin="10dp"
-                android:hint="Longitude" />
+                android:hint="@string/longitude" />
 
             <EditText
                 android:id="@+id/idEdtLatitude"
@@ -62,7 +62,7 @@
                 android:layout_weight="1"
                 android:padding="-3dp"
                 android:layout_margin="10dp"
-                android:hint="Latitude" />
+                android:hint="@string/latitude" />
 
             <EditText
                 android:id="@+id/idEdtAltitude"
@@ -71,7 +71,7 @@
                 android:layout_weight="1"
                 android:padding="-3dp"
                 android:layout_margin="10dp"
-                android:hint="Altitude" />
+                android:hint="@string/altitude" />
         </LinearLayout>
 
         <Button
@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:backgroundTint="#4CAF50"
-            android:text="Get Location"
+            android:text="@string/getLocation"
             android:textAllCaps="false" />
 
         <LinearLayout
@@ -95,7 +95,7 @@
                 android:layout_weight="1"
                 android:padding="3dp"
                 android:layout_margin="10dp"
-                android:text="Location category:"
+                android:text="@string/locationType"
                 />
 
             <!-- Spinner Element -->
@@ -122,7 +122,7 @@
                 android:layout_weight="1"
                 android:padding="3dp"
                 android:layout_margin="10dp"
-                android:text="Add Device"
+                android:text="@string/addLocation"
                 android:textAllCaps="false" />
 
             <!--new button for opening our course list activity-->
@@ -133,7 +133,7 @@
                 android:layout_weight="1"
                 android:padding="3dp"
                 android:layout_margin="10dp"
-                android:text="See all devices"
+                android:text="@string/seeLocations"
                 android:textAllCaps="false" />
         </LinearLayout>
 
