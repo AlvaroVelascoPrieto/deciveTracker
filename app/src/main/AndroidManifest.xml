@@ -24,11 +24,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.ViewDevices"
+            android:name=".view.ViewLocations"
             android:exported="true">
         </activity>
         <activity
-            android:name=".view.UpdateDeviceActivity"
+            android:name=".view.UpdateLocationActivity"
             android:exported="true">
         </activity>
         <activity

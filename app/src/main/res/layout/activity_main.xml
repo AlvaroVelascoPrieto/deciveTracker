@@ -76,7 +76,7 @@
 
     <!--button for adding new device-->
     <Button
-        android:id="@+id/idBtnAddDevice"
+        android:id="@+id/idBtnAddLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -85,7 +85,7 @@
 
     <!--new button for opening our device list activity-->
     <Button
-        android:id="@+id/idBtnSeeDevices"
+        android:id="@+id/idBtnSeeLocations"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"

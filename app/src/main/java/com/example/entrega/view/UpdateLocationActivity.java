@@ -29,7 +29,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.entrega.R;
 import com.example.entrega.controller.DBHandler;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
@@ -38,18 +37,13 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class UpdateDeviceActivity extends AppCompatActivity {
-
+public class UpdateLocationActivity extends AppCompatActivity {
     private static final int PERMISSIONS_FINE_LOCATION = 99;
-    // variables for our edit text, button, strings and dbhandler class.
     private EditText locationNameEdt, logDateEdt, latitudeEdt, longitudeEdt, altitudeEdt;
     private Spinner locationTypeSpinner;
     private DBHandler dbHandler;
     String locationName, longitude, latitude, altitude, logDate, locationType;
     FusedLocationProviderClient fusedLocationProviderClient;
-    LocationRequest locationRequest;
-
-
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -57,11 +51,6 @@ public class UpdateDeviceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_device);
 
-        // Initializing toolbar
-
-
-
-        // initializing all our variables.
         locationNameEdt = findViewById(R.id.idEdtLandmarkName);
         logDateEdt = findViewById(R.id.idEdtlogDate);
         latitudeEdt = findViewById(R.id.idEdtLatitude);
@@ -73,12 +62,9 @@ public class UpdateDeviceActivity extends AppCompatActivity {
         Button deleteLocationeBtn = findViewById(R.id.idBtnDelete);
         Button openInMaps = findViewById(R.id.idBtnOpenMap);
 
+        dbHandler = new DBHandler(UpdateLocationActivity.this);
 
-        // on below line we are initializing our dbhandler class.
-        dbHandler = new DBHandler(UpdateDeviceActivity.this);
-
-        // on below lines we are getting data which
-        // we passed in our adapter class.
+        //Get data passed by adapter class
         locationName = getIntent().getStringExtra("name");
         locationType = getIntent().getStringExtra("type");
         latitude = getIntent().getStringExtra("latitude");
@@ -86,8 +72,7 @@ public class UpdateDeviceActivity extends AppCompatActivity {
         altitude = getIntent().getStringExtra("altitude");
         logDate = getIntent().getStringExtra("date");
 
-        // setting data to edit text
-        // of our update activity.
+       //Update UI components
         locationNameEdt.setText(locationName);
         logDateEdt.setText(logDate);
         latitudeEdt.setText(latitude);
@@ -103,30 +88,20 @@ public class UpdateDeviceActivity extends AppCompatActivity {
         categories.add("Home");
         categories.add("Work");
 
-        // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
 
-        // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        // attaching data adapter to spinner
         locationTypeSpinner.setAdapter(dataAdapter);
         locationTypeSpinner.setSelection(dataAdapter.getPosition(locationType));
-
-        // adding on click listener to our update device button.
         updateLocationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dbHandler.updateLocation(locationName, locationNameEdt.getText().toString(), latitudeEdt.getText().toString(), longitudeEdt.getText().toString(), altitudeEdt.getText().toString(), locationTypeSpinner.getSelectedItem().toString(), logDateEdt.getText().toString());
 
-                // inside this method we are calling an update device
-                // method and passing all our edit text values.
-                dbHandler.updateDevice(locationName, locationNameEdt.getText().toString(), latitudeEdt.getText().toString(), longitudeEdt.getText().toString(), altitudeEdt.getText().toString(), locationTypeSpinner.getSelectedItem().toString(), logDateEdt.getText().toString());
+                Toast.makeText(UpdateLocationActivity.this, "Device Updated..", Toast.LENGTH_SHORT).show();
 
-                // displaying a toast message that our device has been updated.
-                Toast.makeText(UpdateDeviceActivity.this, "Device Updated..", Toast.LENGTH_SHORT).show();
-
-                // launching our main activity.
-                Intent i = new Intent(UpdateDeviceActivity.this, MainActivity.class);
+                Intent i = new Intent(UpdateLocationActivity.this, MainActivity.class);
                 startActivity(i);
             }
         });
@@ -134,7 +109,7 @@ public class UpdateDeviceActivity extends AppCompatActivity {
         logDateEdt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDatePicker(UpdateDeviceActivity.this);
+                showDatePicker(UpdateLocationActivity.this);
             }
         });
 
@@ -145,43 +120,29 @@ public class UpdateDeviceActivity extends AppCompatActivity {
             }
         });
 
-        // adding on click listener for delete button to delete our device.
         deleteLocationeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Create the object of AlertDialog Builder class
-                AlertDialog.Builder builder = new AlertDialog.Builder(UpdateDeviceActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(UpdateLocationActivity.this);
 
-                // Set the message show for the Alert time
-                builder.setMessage("Do you really want to delete this device?");
+                builder.setMessage("¿Quieres borrar la ubicación?");
 
-                // Set Alert Title
-                builder.setTitle("Delete device");
+                builder.setTitle("Borrar ubicación");
 
-                // Set Cancelable false for when the user clicks on the outside the Dialog Box then it will remain show
                 builder.setCancelable(false);
 
-                // Set the positive button with yes name Lambda OnClickListener method is use of DialogInterface interface.
                 builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
-                    // When the user click yes button then app will close
-                    dbHandler.deleteDevice(locationName);
-                    Toast.makeText(UpdateDeviceActivity.this, "Deleted the device", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(UpdateDeviceActivity.this, MainActivity.class);
+                    dbHandler.deleteLocation(locationName);
+                    Toast.makeText(UpdateLocationActivity.this, "Deleted the location", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(UpdateLocationActivity.this, MainActivity.class);
                     startActivity(i);
                 });
 
-                // Set the Negative button with No name Lambda OnClickListener method is use of DialogInterface interface.
                 builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
-                    // If user click no then dialog box is canceled.
                     dialog.cancel();
                 });
-
-                // Create the Alert dialog
                 AlertDialog alertDialog = builder.create();
-                // Show the Alert Dialog box
                 alertDialog.show();
-                // calling a method to delete our device.
-
             }
         });
 
@@ -215,12 +176,9 @@ public class UpdateDeviceActivity extends AppCompatActivity {
     private void updateGPS(){
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         if (this.checkCallingOrSelfPermission("android.permission.ACCESS_FINE_LOCATION") == PackageManager.PERMISSION_GRANTED){
-            //User provided permissions
-            //Get last location (not current) last stored one
             fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(android.location.Location location) {
-                    //We got the location we have to update
                     updateUI(location);
                 }
             });
@@ -245,50 +203,36 @@ public class UpdateDeviceActivity extends AppCompatActivity {
 
     }
 
-
-    // Method to display DatePickerDialog
+    //Display DatePickerDialog
     private void showDatePicker(Context context) {
-        // Get current year, month, and day
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
-
-        // Create DatePickerDialog and set the selected date listener
         DatePickerDialog datePickerDialog = new DatePickerDialog(context,
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        // Update the EditText with the selected year
                         logDateEdt.setText(String.valueOf(year));
                     }
                 }, year, calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-
-        // Set the maximum date to the current date
         datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
-
-        // Show the DatePickerDialog
         datePickerDialog.show();
     }
-
-    // Method to create the toolbar menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.actionbar, menu);
         return true;
     }
-
-    // Method to handle clicks on toolbar items
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_share) {
-            // Handle the share action here
-            shareDeviceData();
+            shareLocationData();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    // Method to share device data
-    private void shareDeviceData() {
+    //Share device data
+    private void shareLocationData() {
         // Get the device data
         String locationName = locationNameEdt.getText().toString();
         String locationDate = logDateEdt.getText().toString();

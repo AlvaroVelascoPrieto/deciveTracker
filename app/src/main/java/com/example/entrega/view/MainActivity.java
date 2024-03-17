@@ -26,7 +26,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,48 +45,34 @@ import java.util.Locale;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
-
     private static final String DEFAULT_LANGUAGE = "en";
-    // creating variables for our edittext, button and dbhandler
     private EditText landmarkNameEdt, logDateEdt, longitudeEdt, latitudeEdt, altitudeEdt;
     private Spinner locationTypeSpinner;
     private DBHandler dbHandler;
-    public static final int DEFAULT_UPDATE_INTERVAL = 30;
-    public static final int MAXIMUM_UPDATE_INTERVAL = 5;
-    static final int PERMISSIONS_FINE_LOCATION = 99;
+    private Button getGetLocationButton, addLocationBtn, seeLocationsBtn;
     //Google's API for location services
     FusedLocationProviderClient fusedLocationProviderClient;
     LocationRequest locationRequest;
-    TextView latitudeTV, altitudeTV, accuracyTV, addressTV;
-
-    Button getLocButton;
+    public static final int DEFAULT_UPDATE_INTERVAL = 30;
+    public static final int MAXIMUM_UPDATE_INTERVAL = 5;
+    static final int PERMISSIONS_FINE_LOCATION = 99;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-
-        // Set default values if they are not already set
-        if (!preferences.contains("selected_language")) {
-            preferences.edit().putString("selected_language", DEFAULT_LANGUAGE).apply();
-        }
-
-        // Retrieve the saved language and dark mode preferences
-        String selectedLanguage = preferences.getString("selected_language", DEFAULT_LANGUAGE);
-
         // Set the saved language
-        setLocale(selectedLanguage);
+        setLocale();
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
 
+        //Action bar configuration
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         androidx.appcompat.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setIcon(R.drawable.ic_launcher);
         actionBar.setTitle("Location Tracker");
         actionBar.setDisplayShowTitleEnabled(true);
-        // methods to display the icon in the ActionBar
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
@@ -97,49 +82,36 @@ public class MainActivity extends AppCompatActivity {
         longitudeEdt = findViewById(R.id.idEdtLongitude);
         latitudeEdt = findViewById(R.id.idEdtLatitude);
         altitudeEdt = findViewById(R.id.idEdtAltitude);
-        Button getGetLocationButton = findViewById(R.id.idBtnGetLocation);
+        getGetLocationButton = findViewById(R.id.idBtnGetLocation);
         locationTypeSpinner = findViewById(R.id.idSpinerDeviceType);
-        Button addDeviceBtn = findViewById(R.id.idBtnAddDevice);
-        Button seeDevicesBtn = findViewById(R.id.idBtnSeeDevices);
+        addLocationBtn = findViewById(R.id.idBtnAddLocation);
+        seeLocationsBtn = findViewById(R.id.idBtnSeeLocations);
 
-
-
-
-        // Spinner Drop down elements
+        // Spinner Drop down elements, adapter and style
         List<String> categories = new ArrayList<String>();
         categories.add("Landmark");
         categories.add("Views");
         categories.add("Entertainment");
         categories.add("Home");
         categories.add("Work");
-
-        // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
-
-        // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // attaching data adapter to spinner
         locationTypeSpinner.setAdapter(dataAdapter);
 
-
-        // creating a new dbhandler class
-        // and passing our context to it.
         dbHandler = new DBHandler(MainActivity.this);
 
-
+        //Define on click listeners for the buttons
         logDateEdt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePicker(MainActivity.this);
             }
         });
-        // below line is to add on click listener for our add course button.
-        addDeviceBtn.setOnClickListener(new View.OnClickListener() {
+
+
+        addLocationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                // below line is to get data from all edit text fields.
                 String landmarkName = landmarkNameEdt.getText().toString();
                 String logDate = logDateEdt.getText().toString();
                 String latitude = latitudeEdt.getText().toString();
@@ -147,46 +119,19 @@ public class MainActivity extends AppCompatActivity {
                 String altitude = altitudeEdt.getText().toString();
                 String locationType = locationTypeSpinner.getSelectedItem().toString();
 
-                // Notification Channel ID. You can create multiple channels if needed.
-                String channelId = "my_channel_id";
-                CharSequence channelName = "My Channel";
-
-                NotificationManager notificationManager =
-                        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-                // Check if the channel exists (required for API 26 and above)
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                    NotificationChannel channel = notificationManager.getNotificationChannel(channelId);
-                    if (channel == null) {
-                        // Create the channel if it doesn't exist
-                        channel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT);
-                        // Configure the channel's behavior
-                        channel.setDescription("My Channel Description");
-                        // Register the channel with the system
-                        notificationManager.createNotificationChannel(channel);
-                    }
-                }
-
-                // Now, you can create and show notifications using this channel
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, channelId)
-                        .setSmallIcon(R.drawable.ic_launcher_foreground)
-                        .setContentTitle("Lugar añadido")
-                        .setContentText(landmarkName);
-
-                // Show the notification
-                notificationManager.notify(1, builder.build());
-
-                // validating if the text fields are empty or not.
+                //Check completion
                 if (landmarkName.isEmpty() || logDate.isEmpty() || longitude.isEmpty() || latitude.isEmpty() || altitude.isEmpty() || locationType.isEmpty()) {
                     Toast.makeText(MainActivity.this, "Please enter all the data..", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                // on below line we are calling a method to add new
-                // course to sqlite data and pass all our values to it.
+                //Send notification
+                pushNotification(landmarkName);
+
+                //Add location to database
                 dbHandler.addNewLocation(landmarkName, logDate, longitude, latitude, altitude, locationType);
 
-                // after adding the data we are displaying a toast message.
+                //Display Tosts indicating insertion and clear fields
                 Toast.makeText(MainActivity.this, "Place has been added.", Toast.LENGTH_SHORT).show();
                 landmarkNameEdt.setText("");
                 longitudeEdt.setText("");
@@ -196,17 +141,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("My channel", "MyNotificationChannel", NotificationManager.IMPORTANCE_DEFAULT);
-            NotificationManager manager = getSystemService(NotificationManager.class);
-            manager.createNotificationChannel(channel);
-        }
-
-        seeDevicesBtn.setOnClickListener(new View.OnClickListener() {
+        seeLocationsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // opening a new activity via a intent.
-                Intent i = new Intent(MainActivity.this, ViewDevices.class);
+                Intent i = new Intent(MainActivity.this, ViewLocations.class);
                 startActivity(i);
             }
         }
@@ -224,10 +163,48 @@ public class MainActivity extends AppCompatActivity {
                 updateGPS();
             }
         });
+
+        //Notification channel settings
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("My channel", "MyNotificationChannel", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
     }
 
-    private void setLocale(String language) {
-        Locale locale = new Locale(language);
+    //Methot to send a notification
+    private void pushNotification(String landmarkName) {
+        String channelId = "my_channel_id";
+        CharSequence channelName = "My Channel";
+
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel channel = notificationManager.getNotificationChannel(channelId);
+            if (channel == null) {
+                channel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT);
+                channel.setDescription("My Channel Description");
+                notificationManager.createNotificationChannel(channel);
+            }
+        }
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, channelId)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle("Lugar añadido")
+                .setContentText(landmarkName);
+
+        notificationManager.notify(1, builder.build());
+    }
+
+    //Method to set preferences to configure language
+    private void setLocale() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        if (!preferences.contains("selected_language")) {
+            preferences.edit().putString("selected_language", DEFAULT_LANGUAGE).apply();
+        }
+        String selectedLanguage = preferences.getString("selected_language", DEFAULT_LANGUAGE);
+        Locale locale = new Locale(selectedLanguage);
         Locale.setDefault(locale);
         Resources resources = getResources();
         Configuration configuration = resources.getConfiguration();
@@ -235,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
         resources.updateConfiguration(configuration, resources.getDisplayMetrics());
     }
 
-    // Method to create the toolbar menu
+    //Method to create the toolbar menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -246,7 +223,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_settings) {
-            // Handle the share action here
             Intent i = new Intent(MainActivity.this, Preferences.class);
             startActivity(i);
             return true;
@@ -254,12 +230,11 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //Method to show calendar date picker
     private void showDatePicker(Context context) {
-        // Get current year, month, and day
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
 
-        // Create DatePickerDialog and set the selected date listener
         DatePickerDialog datePickerDialog = new DatePickerDialog(context,
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -270,13 +245,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }, year, calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 
-        // Set the maximum date to the current date
         datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
-
-        // Show the DatePickerDialog
         datePickerDialog.show();
     }
 
+    //Method to request location usage permission
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -293,6 +266,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Method to update GPS Coordinates
     private void updateGPS(){
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         if (this.checkCallingOrSelfPermission("android.permission.ACCESS_FINE_LOCATION") == PackageManager.PERMISSION_GRANTED){
@@ -301,8 +275,15 @@ public class MainActivity extends AppCompatActivity {
             fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<android.location.Location>() {
                 @Override
                 public void onSuccess(android.location.Location location) {
-                    //We got the location we have to update
-                    updateUI(location);
+                    latitudeEdt.setText(String.valueOf(location.getLatitude()));
+                    longitudeEdt.setText(String.valueOf(location.getLongitude()));
+
+                    if (location.hasAltitude()){
+                        altitudeEdt.setText(String.valueOf(location.getAltitude()));
+                    }
+                    else{
+                        altitudeEdt.setText("Not Available");
+                    }
                 }
             });
         }
@@ -311,18 +292,5 @@ public class MainActivity extends AppCompatActivity {
                 requestPermissions (new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_FINE_LOCATION);
             }
         }
-    }
-
-    private void updateUI(android.location.Location location){
-        latitudeEdt.setText(String.valueOf(location.getLatitude()));
-        longitudeEdt.setText(String.valueOf(location.getLongitude()));
-
-        if (location.hasAltitude()){
-            altitudeEdt.setText(String.valueOf(location.getAltitude()));
-        }
-        else{
-            altitudeEdt.setText("Not Available");
-        }
-
     }
 }

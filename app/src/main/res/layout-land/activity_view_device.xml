@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.ViewDevices">
+    tools:context=".view.ViewLocations">
 
     <!--recycler view for displaying our courses-->
     <androidx.recyclerview.widget.RecyclerView

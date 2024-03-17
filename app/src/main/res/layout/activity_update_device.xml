@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:backgroundTint="#FFEB3B"
     android:orientation="vertical"
-    tools:context=".view.UpdateDeviceActivity">
+    tools:context=".view.UpdateLocationActivity">
 
 
     <!--Edit text to enter device name-->

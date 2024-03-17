@@ -43,13 +43,10 @@ public class Preferences extends AppCompatActivity {
         languages.add("English");
         languages.add("Basque");
 
-        // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, languages);
 
-        // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        // attaching data adapter to spinner
         languageSpinner.setAdapter(dataAdapter);
         languageSpinner.setSelection(dataAdapter.getPosition(selectedLanguage));
 
@@ -60,7 +57,6 @@ public class Preferences extends AppCompatActivity {
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(Preferences.this);
                 String currentLanguage = preferences.getString("selected_language", "");
 
-                // Check if the selected language is different from the current language
                 if (!language.equals(getLanguageName(currentLanguage))) {
                     setLocale(language);
                     recreate();
