@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.entrega.R;
 import com.example.entrega.controller.RemoteDBHandler;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,6 +27,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class LogIn extends AppCompatActivity {
     private EditText edtDNI, edtPassword;
@@ -81,8 +84,7 @@ public class LogIn extends AppCompatActivity {
                 }
 
                 try{
-                    System.out.println(info);
-                    JSONObject data = info.getJSONObject("data");
+                    JSONObject data = (JSONObject) info.getJSONArray("data").get(0);
                     String nombre = data.getString("nombre");
                     String apellido = data.getString("apellido");
                     String telefono = data.getString("telefono");
