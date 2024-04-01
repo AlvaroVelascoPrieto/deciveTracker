@@ -17,4 +17,8 @@
     <string name="english">English</string>
     <string name="language">Language</string>
     <string name="applyChanges">Apply Changes</string>
+    <string name="ip" translatable="false">34.70.109.203</string>
+    <string name="contrasena">Password\n</string>
+    <string name="DNI">ID</string>
+    <string name="SignIn">Sign In</string>
 </resources>
