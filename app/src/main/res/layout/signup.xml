@@ -9,12 +9,6 @@
     tools:context=".view.MainActivity"
     tools:ignore="ExtraText">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="234dp"
-        app:srcCompat="@drawable/ic_launcher" />
-
     <EditText
         android:id="@+id/idEdtDNI"
         android:layout_width="match_parent"
@@ -30,14 +24,33 @@
         android:layout_margin="10dp"
         android:hint="@string/contrasena" />
 
-    <Button
-        android:id="@+id/idBtnLogIn"
+    <EditText
+        android:id="@+id/idEdtContrasena2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:backgroundTint="#4CAF50"
-        android:text="@string/SignIn"
-        android:textAllCaps="false" />
+        android:hint="@string/repeatPassword" />
+
+    <EditText
+        android:id="@+id/idEdtName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="@string/name" />
+
+    <EditText
+        android:id="@+id/idEdtLastName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="@string/lastname" />
+
+    <EditText
+        android:id="@+id/idEdtTelephone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="@string/telephone" />
 
     <Button
         android:id="@+id/idBtnSignUp"

@@ -18,7 +18,12 @@
     <string name="language">Language</string>
     <string name="applyChanges">Apply Changes</string>
     <string name="ip" translatable="false">34.70.109.203</string>
-    <string name="contrasena">Password\n</string>
+    <string name="contrasena">Password</string>
     <string name="DNI">ID</string>
     <string name="SignIn">Sign In</string>
+    <string name="SignUp">Sign Up</string>
+    <string name="telephone">Phone</string>
+    <string name="lastname">Last Name</string>
+    <string name="name">Name</string>
+    <string name="repeatPassword">Repeat Password</string>
 </resources>

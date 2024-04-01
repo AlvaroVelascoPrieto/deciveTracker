@@ -32,7 +32,7 @@ import java.util.Collection;
 
 public class LogIn extends AppCompatActivity {
     private EditText edtDNI, edtPassword;
-    private Button btnLogIn;
+    private Button btnLogIn, btnSignUp;
     String ip;
 
     @SuppressLint("MissingInflatedId")
@@ -45,6 +45,7 @@ public class LogIn extends AppCompatActivity {
         edtDNI = findViewById(R.id.idEdtDNI);
         edtPassword =  findViewById(R.id.idEdtContrasena);
         btnLogIn = findViewById(R.id.idBtnLogIn);
+        btnSignUp = findViewById(R.id.idBtnSignUp);
 
         btnLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +54,13 @@ public class LogIn extends AppCompatActivity {
             }
         });
 
-
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LogIn.this, SignUp.class);
+                startActivity(i);
+            }
+        });
     }
 
     private void logIn() {
@@ -63,7 +70,7 @@ public class LogIn extends AppCompatActivity {
             public void run() {
 
                 String dni = edtDNI.getText().toString();
-                String contrasena = edtDNI.getText().toString();
+                String contrasena = edtPassword.getText().toString();
                 if (dni.isEmpty() || contrasena.isEmpty()) {
                     LogIn.this.runOnUiThread(new Runnable() {
                         public void run() {
@@ -84,7 +91,7 @@ public class LogIn extends AppCompatActivity {
                 }
 
                 try{
-                    JSONObject data = (JSONObject) info.getJSONArray("data").get(0);
+                    JSONObject data = info.getJSONObject("data");
                     String nombre = data.getString("nombre");
                     String apellido = data.getString("apellido");
                     String telefono = data.getString("telefono");

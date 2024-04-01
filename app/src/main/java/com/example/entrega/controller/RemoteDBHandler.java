@@ -15,21 +15,21 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.Console;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.URL;
 import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 
 public class RemoteDBHandler {
     static String ip = String.valueOf(R.string.ip);
-    public static JSONObject checkUserCreds( String dni, String contrasena) {
+    public static JSONObject checkUserCreds(String dni, String password) {
         try {
             String charset = "UTF-8";
-
             String query = String.format("?dni=%s&contrasena=%s",
                     URLEncoder.encode(dni, charset),
-                    URLEncoder.encode(contrasena, charset));
-
-            URL url = new URL(String.format("http://34.70.109.203", ip, query));
+                    URLEncoder.encode(password, charset));
+            URL url = new URL(String.format("http://34.70.109.203") + query);
+            System.out.println(url);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.setRequestProperty("Accept-Charset", charset);
@@ -58,4 +58,45 @@ public class RemoteDBHandler {
 
 
     }
-}
+
+    public static int registerUser(String dni, String password, String name, String lastName, String phone) {
+        try {
+            URL url = new URL(String.format("http://34.70.109.203"));
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            String charset = "UTF-8";
+            urlConnection.setDoOutput(true);
+            urlConnection.setRequestMethod("POST");
+            urlConnection.setRequestProperty("Accept-Charset", charset);
+            urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charset);
+
+
+
+            String query = String.format("dni=%s&" +
+                            "contrasena=%s&" +
+                            "nombre=%s&" +
+                            "apellido=%s&" +
+                            "telefono=%s&",
+                    URLEncoder.encode(dni, charset),
+                    URLEncoder.encode(password, charset),
+                    URLEncoder.encode(name, charset),
+                    URLEncoder.encode(lastName, charset),
+                    URLEncoder.encode(phone, charset));
+
+            OutputStream out = urlConnection.getOutputStream();
+            out.write(query.getBytes());
+
+            BufferedReader rd = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+
+            String jsonString = rd.readLine();
+            JSONObject jsonValue = new JSONObject(jsonString);
+
+            int code = jsonValue.getInt("code");
+
+            return code;
+        } catch (Exception e) {
+            return 500;
+        }
+    }
+
+
+    }
