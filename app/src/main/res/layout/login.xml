@@ -6,46 +6,67 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.MainActivity"
-    tools:ignore="ExtraText">
+    android:padding="16dp"
+    tools:context=".view.MainActivity">
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="match_parent"
+        android:layout_width="267dp"
         android:layout_height="234dp"
-        app:srcCompat="@drawable/ic_launcher" />
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/logo2"
+        tools:srcCompat="@drawable/logo2"
+        android:layout_gravity="center"/>
 
-    <EditText
-        android:id="@+id/idEdtDNI"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/idInputLayoutDNI"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:hint="@string/DNI"
-        android:minHeight="48dp" />
+        android:layout_marginTop="16dp">
 
-    <EditText
-        android:id="@+id/idEdtContrasena"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/idEdtDNI"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/DNI"
+            android:inputType="number"
+            android:minHeight="48dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/idInputLayoutPassword"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:hint="@string/contrasena" />
+        android:layout_marginTop="8dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/idEdtContrasena"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/contrasena"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/idBtnLogIn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:backgroundTint="#4CAF50"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#673AB7"
         android:text="@string/SignIn"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"
+        android:textColor="@android:color/white" />
 
     <Button
         android:id="@+id/idBtnSignUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:backgroundTint="#673AB7"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#4CAF50"
         android:text="@string/SignUp"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"
+        android:textColor="@android:color/white" />
 
 </LinearLayout>

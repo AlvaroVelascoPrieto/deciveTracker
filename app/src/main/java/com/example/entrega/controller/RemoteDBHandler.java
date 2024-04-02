@@ -63,6 +63,7 @@ public class RemoteDBHandler {
         try {
             URL url = new URL(String.format("http://34.70.109.203"));
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            System.out.println("Connected");
             String charset = "UTF-8";
             urlConnection.setDoOutput(true);
             urlConnection.setRequestMethod("POST");
