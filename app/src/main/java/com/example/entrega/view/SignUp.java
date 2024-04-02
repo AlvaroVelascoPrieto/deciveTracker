@@ -18,7 +18,7 @@ import com.example.entrega.controller.RemoteDBHandler;
 
 public class SignUp extends AppCompatActivity {
     private EditText edtDNI, edtPassword, edtPassword2, edtName, edtLastName, edtPhone;
-    private Button btnSignUp;
+    private Button btnSignUpSubmit;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,23 +26,23 @@ public class SignUp extends AppCompatActivity {
         setContentView(R.layout.signup);
 
         edtDNI = findViewById(R.id.idEdtDNI);
-        edtPassword =  findViewById(R.id.idEdtContrasena);
+        edtPassword = findViewById(R.id.idEdtContrasena);
         edtPassword2 = findViewById(R.id.idEdtContrasena2);
         edtName = findViewById(R.id.idEdtName);
         edtLastName = findViewById(R.id.idEdtLastName);
         edtPhone = findViewById(R.id.idEdtTelephone);
-        btnSignUp = findViewById(R.id.idBtnSignUp);
+        btnSignUpSubmit = findViewById(R.id.idBtnSignUpSubmit);
 
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
+
+        btnSignUpSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
+                registrarse();
             }
         });
     }
 
-    public void registrarse(View v) {
+    public void registrarse() {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -67,8 +67,9 @@ public class SignUp extends AppCompatActivity {
                             Toast.makeText(SignUp.this, "Passwords do not match.", Toast.LENGTH_SHORT).show();
                         }
                     });
+                    return;
                 }
-                int code =RemoteDBHandler.registerUser(dni, contrasena, name, lastName, phone);
+                int code = RemoteDBHandler.registerUser(dni, contrasena, name, lastName, phone);
 
                 if (code == 200) {
                     SignUp.this.runOnUiThread(new Runnable() {

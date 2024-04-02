@@ -20,7 +20,7 @@
     <string name="ip" translatable="false">34.70.109.203</string>
     <string name="contrasena">Password</string>
     <string name="DNI">ID</string>
-    <string name="SignIn">Sign In</string>
+    <string name="SignIn">Log In</string>
     <string name="SignUp">Sign Up</string>
     <string name="telephone">Phone</string>
     <string name="lastname">Last Name</string>
