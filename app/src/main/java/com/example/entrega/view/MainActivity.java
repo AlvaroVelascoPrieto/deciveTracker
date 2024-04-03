@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         latitudeEdt = findViewById(R.id.idEdtLatitude);
         altitudeEdt = findViewById(R.id.idEdtAltitude);
         getGetLocationButton = findViewById(R.id.idBtnGetLocation);
-        locationTypeSpinner = findViewById(R.id.idSpinerDeviceType);
+        locationTypeSpinner = findViewById(R.id.idSpinnerDeviceType);
         addLocationBtn = findViewById(R.id.idBtnAddLocation);
         seeLocationsBtn = findViewById(R.id.idBtnSeeLocations);
 

@@ -18,4 +18,12 @@
     <string name="english">Ingelera</string>
     <string name="language">Hizkuntza</string>
     <string name="applyChanges">Aldaketak Berretsi</string>
+    <string name="contrasena">Pasahitza</string>
+    <string name="DNI">NANa</string>
+    <string name="SignIn">Hasi saioa</string>
+    <string name="SignUp">Eman izena</string>
+    <string name="telephone">Mugikorra</string>
+    <string name="lastname">Abizena</string>
+    <string name="name">Izena</string>
+    <string name="repeatPassword">Pasahitza errepikatu</string>
 </resources>

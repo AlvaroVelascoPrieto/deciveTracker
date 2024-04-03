@@ -96,7 +96,7 @@ public class LogIn extends AppCompatActivity {
                     String apellido = data.getString("apellido");
                     String telefono = data.getString("telefono");
                     // Passing data to another Activity
-                    Intent i = new Intent(LogIn.this, MainActivity.class);
+                    Intent i = new Intent(LogIn.this, ActionMenu.class);
                     i.putExtra("dni", dni);
                     i.putExtra("contrasena", contrasena);
                     i.putExtra("nombre", nombre);

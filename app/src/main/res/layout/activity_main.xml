@@ -5,90 +5,130 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".view.MainActivity"
     tools:ignore="ExtraText">
 
-
     <!--Edit text to enter device name-->
-    <EditText
-        android:id="@+id/idEdtLandmarkName"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/idInputLayoutLandmarkName"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:hint="@string/locationName" />
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/idEdtLandmarkName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/locationName" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <!--edit text to enter device year-->
-    <EditText
-        android:id="@+id/idEdtlogDate"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/idInputLayoutLogDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:hint="@string/date"
-        android:focusable="false"
-        android:clickable="true" />
+        android:layout_marginTop="16dp">
 
-    <!--edit text to display device model-->
-    <EditText
-        android:id="@+id/idEdtLongitude"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/idEdtlogDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/date"
+            android:focusable="false"
+            android:clickable="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:hint="@string/longitude" />
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <!--edit text to display device model-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idInputLayoutLongitude"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="3dp"
+            android:layout_marginTop="16dp">
 
-    <EditText
-        android:id="@+id/idEdtLatitude"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtLongitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/longitude" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idInputLayoutLatitude"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="3dp"
+            android:layout_marginTop="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtLatitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/latitude" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/idInputLayoutAltitude"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:hint="@string/latitude" />
+        android:layout_marginTop="16dp">
 
-    <EditText
-        android:id="@+id/idEdtAltitude"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:hint="@string/altitude" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/idEdtAltitude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/altitude" />
+    </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- Button to get location -->
     <Button
         android:id="@+id/idBtnGetLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="#4CAF50"
         android:text="@string/getLocation"
         android:textAllCaps="false" />
 
-    <!-- Text Label -->
+    <!-- Text Label for Location Type -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="@string/locationType"
-        />
+        android:layout_marginTop="16dp"
+        android:text="@string/locationType" />
 
-    <!-- Spinner Element -->
+    <!-- Spinner for Location Type -->
     <Spinner
-        android:id="@+id/idSpinerDeviceType"
+        android:id="@+id/idSpinnerDeviceType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginTop="8dp"
         android:prompt="@string/spinner_title" />
 
-    <!--button for adding new device-->
+    <!-- Button to add location -->
     <Button
         android:id="@+id/idBtnAddLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginTop="16dp"
         android:text="@string/addLocation"
         android:textAllCaps="false" />
 
-    <!--new button for opening our device list activity-->
+    <!-- Button to view locations -->
     <Button
         android:id="@+id/idBtnSeeLocations"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="#9C27B0"
         android:text="@string/seeLocations"
         android:textAllCaps="false" />
