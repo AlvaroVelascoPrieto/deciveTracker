@@ -97,11 +97,11 @@ public class LogIn extends AppCompatActivity {
                     String telefono = data.getString("telefono");
                     // Passing data to another Activity
                     Intent i = new Intent(LogIn.this, ActionMenu.class);
-                    i.putExtra("dni", dni);
-                    i.putExtra("contrasena", contrasena);
-                    i.putExtra("nombre", nombre);
-                    i.putExtra("apellido", apellido);
-                    i.putExtra("telefono", telefono);
+                    i.putExtra("id", dni);
+                    i.putExtra("password", contrasena);
+                    i.putExtra("name", nombre);
+                    i.putExtra("lastname", apellido);
+                    i.putExtra("phone", telefono);
                     LogIn.this.runOnUiThread(new Runnable() {
                         public void run() {
                             Toast.makeText(LogIn.this, "Welcome", Toast.LENGTH_SHORT).show();

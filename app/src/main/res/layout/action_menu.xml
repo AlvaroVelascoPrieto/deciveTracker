@@ -6,24 +6,24 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Button to visualize profile data -->
     <Button
         android:id="@+id/idBtnProfile"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="340dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="#4CAF50"
         android:layout_weight="1"
-        android:text="View Profile Data"
-        android:textColor="@color/black"
-        android:textAllCaps="false"
         android:drawablePadding="8dp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:layout_marginBottom="8dp" />
+        android:text="View Profile Data"
+        android:textAllCaps="false"
+        android:textColor="@color/black" />
 
     <!-- Horizontal LinearLayout for the last two buttons -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="300dp"
         android:layout_weight="1"
         android:orientation="horizontal">
 
@@ -47,19 +47,32 @@
         <!-- Button to visualize all locations -->
         <Button
             android:id="@+id/idBtnViewLocations"
-            android:backgroundTint="#9C27B0"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginStart="4dp"
             android:layout_weight="1"
-            android:text="View All Locations"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
+            android:backgroundTint="#9C27B0"
             android:gravity="center"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:layout_marginStart="4dp" /> <!-- Added margin to the start -->
+            android:text="View All Locations"
+            android:textAllCaps="false"
+            android:textColor="@color/black" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/idSignOut"
+        android:layout_width="match_parent"
+        android:layout_height="86dp"
+        android:layout_weight="1"
+        android:backgroundTint="#F33628"
+        android:gravity="center"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:text="Sign Out"
+        android:textAllCaps="false"
+        android:textColor="@color/black" />
 
 </LinearLayout>

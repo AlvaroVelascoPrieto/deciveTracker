@@ -34,6 +34,10 @@
             android:exported="true">
         </activity>
         <activity
+            android:name=".view.ProfileActivity"
+            android:exported="true">
+        </activity>
+        <activity
             android:name=".view.ViewLocations"
             android:exported="true">
         </activity>
