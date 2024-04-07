@@ -2,12 +2,14 @@ package com.example.entrega.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +27,8 @@ public class ProfileActivity extends AppCompatActivity {
     private String id, password, name, lastname, phone;
     private TextView edtId, edtPassword, edtName, edtLastName, edtPhone;
 
+    private ImageView profilePicture;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +38,7 @@ public class ProfileActivity extends AppCompatActivity {
         name = getIntent().getStringExtra("name");
         lastname = getIntent().getStringExtra("lastname");
         phone = getIntent().getStringExtra("phone");
+        profilePicture = findViewById(R.id.profile_picture);
         edtId = findViewById(R.id.user_id_value);
         edtId.setText(id);
         edtPassword = findViewById(R.id.password_value);
@@ -62,13 +67,35 @@ public class ProfileActivity extends AppCompatActivity {
             }
         };
         getOnBackPressedDispatcher().addCallback(this, callback);
+
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                Bitmap bm = RemoteDBHandler.getUserProfilePicture(id);
+                ProfileActivity.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        profilePicture.setImageBitmap(bm);
+                        profilePicture.setRotation(90);
+                    }
+                });
+            }
+
+        });
+
+        if (thread.isAlive()) {
+            thread.interrupt();
+        }
+        thread.start();
     }
+
+
 
     public void changeProfilePicture(View view) {
-        // Placeholder method for changing profile picture
-        Toast.makeText(this, "Change profile picture", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(ProfileActivity.this, CameraActivity.class);
+        i.putExtra("id", id);
+        startActivity(i);
     }
-
     public void changePassword(View view) {
         showDialog((TextView) view);
     }

@@ -5,7 +5,11 @@ import static androidx.core.content.ContextCompat.startActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.entrega.R;
@@ -16,6 +20,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.Console;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.ProtocolException;
@@ -136,5 +141,25 @@ public class RemoteDBHandler {
         int code = jsonValue.getInt("code");
 
         return code;
+    }
+
+    public static Bitmap getUserProfilePicture(String dni) {
+        try {
+            String urldisplay = String.format("http://34.70.109.203/public/uploads/" + dni + ".jpg");
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+
+        } catch (Exception e) {
+            System.out.println("Error mientras se cargaba la foto de perfil.");
+            System.out.println(e.toString());
+            return null;
+        }
     }
 }
