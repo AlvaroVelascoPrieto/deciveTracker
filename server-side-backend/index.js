@@ -1,6 +1,7 @@
-
 const express = require('express')
 const mysql = require('mysql')
+var upload = require('./multerUtil');
+const fs = require("fs")
 const app = express()
 const port = 80
 
@@ -118,6 +119,27 @@ app.route('/')
                 }
             })
         })
+
+app.route('/images/')
+
+.post(upload.single('file'), function(req, res, next){
+    res.send({ret_code: '0'});
+    console.log('Upload happened')
+});
+
+app.route('/public/uploads/:name')
+.get(async function (request, result) {
+  const name = request.params.name
+  let image = await fs.readFileSync("public/uploads/" + name)
+  image = Buffer.from(image, "base64")
+  console.log('The following IDs profile picture has been served: ' + name)
+  result.writeHead(200, {
+    "Content-Type": "image/jpg",
+    "Content-Length": image.length
+  })
+  result.end(image)
+  return
+})
 
 // Starting to listen
 app.listen(port, () => {
