@@ -86,6 +86,39 @@ app.route('/')
     });
 })
 
+.put((req, res) => {
+            let id = req.body.originalId;
+            let password = req.body.nPassword;
+            let name = req.body.nName;
+            let lastName = req.body.nLastName;
+            let phone = req.body.nPhone;
+	    console.log(id)
+	    id = parseInt(id);
+	    console.log(id)
+	    console.log(req.body)
+            let query_actualizar = "UPDATE `USUARIO` SET `dni` = ?, `contrasena` = ?, `nombre` = ?, " +
+                    "`apellido` = ?, `telefono` = ? WHERE dni = ?";
+
+            connection.query(query_actualizar, [id, password, name, lastName,
+                    phone, id], (err, results, fields) => {
+                if (err) {
+                    res.json({
+                            'code': 300,
+                            'message': 'Failed on update'
+              })
+		console.log('Failed on update')
+		console.log(err)
+                } else {
+                    res.json({
+                            'code': 200,
+                            'message': 'Successful update'
+              })
+		console.log('Successful update')
+		console.log(results)
+                }
+            })
+        })
+
 // Starting to listen
 app.listen(port, () => {
   console.log('Server listen on port 80...')
