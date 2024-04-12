@@ -24,6 +24,9 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String LONGITUDE = "longitude";
     private static final String ALTITUDE = "altitude";
     private static final String LANDMARK_TYPE = "type";
+    private static final String EVENT_ID_COL = "event_id";
+    private static final String DATETIME = "datetime";
+    private static final String EVENT = "event";
 
     // DB Constructor
     public DBHandler(Context context) {
@@ -43,6 +46,16 @@ public class DBHandler extends SQLiteOpenHelper {
                 + LANDMARK_TYPE + " TEXT)";
 
         db.execSQL(query);
+
+        query = "CREATE TABLE " + "events" + " ("
+                + EVENT_ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + ID_COL + " INTEGER, "
+                + DATETIME + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP, "
+                + EVENT + " TEXT, "
+                + "FOREIGN KEY (" + ID_COL + ") REFERENCES " + TABLE_NAME + "(" + ID_COL + "))";
+
+        db.execSQL(query);
+
     }
 
     //Insert
@@ -114,5 +127,26 @@ public class DBHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
+    }
+
+    public String getLastEvent(String id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursorState = db.rawQuery("SELECT " + EVENT + " FROM events WHERE " + ID_COL + "=" + id + " ORDER BY "+ DATETIME + " DESC LIMIT 1", null);
+        if (cursorState.getCount()==0){
+            return null;
+        }
+        return cursorState.getString(1);
+    }
+
+    public void addNewEvent(String id, String event) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ID_COL, id);
+        values.put(EVENT, event);
+
+        db.insert("events", null, values);
+
+        db.close();
     }
 }

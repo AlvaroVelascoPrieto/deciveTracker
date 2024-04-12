@@ -1,5 +1,7 @@
 package com.example.entrega.view;
 
+import static android.Manifest.permission.ACCESS_BACKGROUND_LOCATION;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
@@ -30,9 +32,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import com.example.entrega.R;
 import com.example.entrega.controller.DBHandler;
+import com.example.entrega.model.MyWorker;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -43,6 +49,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
     private static final String DEFAULT_LANGUAGE = "en";
@@ -57,12 +64,17 @@ public class MainActivity extends AppCompatActivity {
     public static final int MAXIMUM_UPDATE_INTERVAL = 5;
     static final int PERMISSIONS_FINE_LOCATION = 99;
 
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Set the saved language
         setLocale();
         super.onCreate(savedInstanceState);
+
+        PeriodicWorkRequest periodicWork = new PeriodicWorkRequest.Builder(MyWorker.class, 15, TimeUnit.MINUTES)
+                .build();
+        WorkManager.getInstance().enqueueUniquePeriodicWork("Location", ExistingPeriodicWorkPolicy.REPLACE, periodicWork);
 
         setContentView(R.layout.activity_main);
 
