@@ -150,9 +150,9 @@ public class MyWorker extends Worker {
                                 NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext, mContext.getString(R.string.app_name))
                                         .setSmallIcon(android.R.drawable.ic_menu_mylocation)
                                         .setContentTitle("New Location Update")
-                                        .setContentText("You are at Lat: " + mLocation.getLatitude() + "Long: " + mLocation.getLongitude())
+                                        .setContentText("You are at Lat: " + mLocation.getLatitude() + " Long: " + mLocation.getLongitude())
                                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                                        .setStyle(new NotificationCompat.BigTextStyle().bigText("You are at Lat: " + mLocation.getLatitude() + "Long: " + mLocation.getLongitude()));
+                                        .setStyle(new NotificationCompat.BigTextStyle().bigText("You are at Lat: " + mLocation.getLatitude() + " Long: " + mLocation.getLongitude()));
 
                                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(mContext);
 

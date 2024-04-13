@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int DEFAULT_UPDATE_INTERVAL = 30;
     public static final int MAXIMUM_UPDATE_INTERVAL = 5;
     static final int PERMISSIONS_FINE_LOCATION = 99;
+    static final int ACCESS_BACKGROUND_LOCATION = 98;
 
 
     @SuppressLint("MissingInflatedId")
@@ -302,6 +303,14 @@ public class MainActivity extends AppCompatActivity {
         else{
             if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.M){
                 requestPermissions (new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_FINE_LOCATION);
+            }
+        }
+        if (this.checkCallingOrSelfPermission("android.permission.ACCESS_BACKGROUND_LOCATION") == PackageManager.PERMISSION_GRANTED){
+
+        }
+        else{
+            if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.M){
+                requestPermissions (new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION}, ACCESS_BACKGROUND_LOCATION);
             }
         }
     }
