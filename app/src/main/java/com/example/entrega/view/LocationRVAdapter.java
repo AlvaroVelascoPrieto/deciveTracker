@@ -43,8 +43,9 @@ public class LocationRVAdapter extends RecyclerView.Adapter<LocationRVAdapter.Vi
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(context, UpdateLocationActivity.class);
+                Intent i = new Intent(context, LocationStats.class);
 
+                i.putExtra("id", String.valueOf(modal.getId()));
                 i.putExtra("name", modal.getLocationName());
                 i.putExtra("type", modal.getdeviceType());
                 i.putExtra("latitude", modal.getLatitude());

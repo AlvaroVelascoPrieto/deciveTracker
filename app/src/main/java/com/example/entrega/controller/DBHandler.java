@@ -149,4 +149,25 @@ public class DBHandler extends SQLiteOpenHelper {
 
         db.close();
     }
+
+    public ArrayList<ArrayList<String>> readEvents(String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursorDevices = db.rawQuery("SELECT * FROM " + "events WHERE " + ID_COL + "=" + id + " ORDER BY "+ DATETIME + " DESC", null);
+
+        ArrayList<ArrayList<String>> results = new ArrayList<>();
+
+        System.out.println(cursorDevices.getCount());
+        if (cursorDevices.moveToFirst()) {
+            do {
+                ArrayList<String> result = new ArrayList<>();
+                result.add(cursorDevices.getString(0));
+                result.add(cursorDevices.getString(1));
+                result.add(cursorDevices.getString(2));
+                result.add(cursorDevices.getString(3));
+                results.add(result);
+            } while (cursorDevices.moveToNext());
+        }
+        cursorDevices.close();
+        return results;
+    }
 }

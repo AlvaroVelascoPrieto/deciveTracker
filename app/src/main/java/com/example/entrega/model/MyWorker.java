@@ -130,8 +130,10 @@ public class MyWorker extends Worker {
                                     String position = insideOrOutside(origin, 100.0F, mLocation);
                                     if (dbHandler.getLastEvent(String.valueOf(act.getId()))!=null && !dbHandler.getLastEvent(String.valueOf(act.getId())).equals(position)){
                                         dbHandler.addNewEvent(String.valueOf(act.getId()), position);
+                                        Log.d(TAG,"Executed");
+                                    } else if (dbHandler.getLastEvent(String.valueOf(act.getId()))==null) {
+                                        dbHandler.addNewEvent(String.valueOf(act.getId()), position);
                                     }
-                                    System.out.println("Exectuted");
                                 }
                                 // Create the NotificationChannel, but only on API 26+ because
                                 // the NotificationChannel class is new and not in the support library
