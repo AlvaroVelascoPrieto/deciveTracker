@@ -84,7 +84,9 @@ public class DBHandler extends SQLiteOpenHelper {
 
         if (cursorDevices.moveToFirst()) {
             do {
-                ModalArrayList.add(new LocationModal(cursorDevices.getString(1),
+                ModalArrayList.add(new LocationModal(
+                        cursorDevices.getString(0),
+                        cursorDevices.getString(1),
                         cursorDevices.getString(2),
                         cursorDevices.getString(3),
                         cursorDevices.getString(4),
@@ -135,7 +137,8 @@ public class DBHandler extends SQLiteOpenHelper {
         if (cursorState.getCount()==0){
             return null;
         }
-        return cursorState.getString(1);
+        cursorState.moveToFirst();
+        return cursorState.getString(0);
     }
 
     public void addNewEvent(String id, String event) {
@@ -153,6 +156,27 @@ public class DBHandler extends SQLiteOpenHelper {
     public ArrayList<ArrayList<String>> readEvents(String id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursorDevices = db.rawQuery("SELECT * FROM " + "events WHERE " + ID_COL + "=" + id + " ORDER BY "+ DATETIME + " DESC", null);
+
+        ArrayList<ArrayList<String>> results = new ArrayList<>();
+
+        System.out.println(cursorDevices.getCount());
+        if (cursorDevices.moveToFirst()) {
+            do {
+                ArrayList<String> result = new ArrayList<>();
+                result.add(cursorDevices.getString(0));
+                result.add(cursorDevices.getString(1));
+                result.add(cursorDevices.getString(2));
+                result.add(cursorDevices.getString(3));
+                results.add(result);
+            } while (cursorDevices.moveToNext());
+        }
+        cursorDevices.close();
+        return results;
+    }
+
+    public ArrayList<ArrayList<String>> readEventsThisWeek(String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursorDevices = db.rawQuery("SELECT * FROM " + "events WHERE " + ID_COL + "=" + id + " AND DATE(" + DATETIME + ") >= DATE('now', 'weekday 0', '-7 days')" + " ORDER BY "+ DATETIME + " DESC", null);
 
         ArrayList<ArrayList<String>> results = new ArrayList<>();
 

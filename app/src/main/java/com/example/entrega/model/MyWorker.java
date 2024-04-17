@@ -133,7 +133,7 @@ public class MyWorker extends Worker {
                                         Log.d(TAG,"Executed");
                                     } else if (dbHandler.getLastEvent(String.valueOf(act.getId()))==null) {
                                         dbHandler.addNewEvent(String.valueOf(act.getId()), position);
-                                    }
+                                    }Log.d(TAG,"UE");
                                 }
                                 // Create the NotificationChannel, but only on API 26+ because
                                 // the NotificationChannel class is new and not in the support library

@@ -38,13 +38,16 @@ public class LocationModal {
     }
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
-    public LocationModal(String locationName,
+    public LocationModal(
+            String id,
+            String locationName,
                          String logDate,
                          String latitude,
                          String longitude,
                          String altitude,
                          String deviceType)
     {
+        this.id = Integer.parseInt(id);
         this.locationName = locationName;
         this.logDate = logDate;
         this.latitude = latitude;
