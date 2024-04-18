@@ -8,7 +8,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.entrega.view.LocationModal;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class DBHandler extends SQLiteOpenHelper {
 
@@ -143,13 +146,14 @@ public class DBHandler extends SQLiteOpenHelper {
 
     public void addNewEvent(String id, String event) {
         SQLiteDatabase db = this.getWritableDatabase();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        String currentDateandTime = sdf.format(new Date());
 
         ContentValues values = new ContentValues();
         values.put(ID_COL, id);
         values.put(EVENT, event);
-
+        values.put(DATETIME, currentDateandTime);
         db.insert("events", null, values);
-
         db.close();
     }
 
