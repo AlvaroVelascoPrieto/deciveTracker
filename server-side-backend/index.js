@@ -40,7 +40,6 @@ app.route('/')
             });
 	    console.log('There was a server error.')
         } else {
-
             if (results.length > 0) {
                 res.json({
                     'code': 200,
@@ -65,11 +64,14 @@ app.route('/')
   let nombre = req.body.nombre;
   let apellido = req.body.apellido;
   let telefono = req.body.telefono;
+  let notificaciones = req.body.notificaciones
+  let token = req.body.token
+
   console.log(dni)
 
-  let query_registrarse = "INSERT INTO `USUARIO` VALUES(?, ?, ?, ?, ?)"
+  let query_registrarse = "INSERT INTO `USUARIO` VALUES(?, ?, ?, ?, ?, ?, ?)"
 
-  connection.query(query_registrarse, [dni, contrasena, nombre, apellido, telefono], 
+  connection.query(query_registrarse, [dni, contrasena, nombre, apellido, telefono, notificaciones, token], 
     (err, results, fields) => {
         if (err) {
             res.json({
@@ -93,15 +95,17 @@ app.route('/')
             let name = req.body.nName;
             let lastName = req.body.nLastName;
             let phone = req.body.nPhone;
+            let notificaciones = req.body.notificaciones;
+            let token = req.body.token
 	    console.log(id)
 	    id = parseInt(id);
 	    console.log(id)
 	    console.log(req.body)
             let query_actualizar = "UPDATE `USUARIO` SET `dni` = ?, `contrasena` = ?, `nombre` = ?, " +
-                    "`apellido` = ?, `telefono` = ? WHERE dni = ?";
+                    "`apellido` = ?, `telefono` = ?, `notificaciones` = ?, `token` = ? WHERE dni = ?";
 
             connection.query(query_actualizar, [id, password, name, lastName,
-                    phone, id], (err, results, fields) => {
+                    phone, notificaciones, token, id], (err, results, fields) => {
                 if (err) {
                     res.json({
                             'code': 300,

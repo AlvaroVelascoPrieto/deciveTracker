@@ -9,7 +9,8 @@ CREATE TABLE USUARIO(
     contrasena VARCHAR(100),
     nombre VARCHAR(100),
     apellido VARCHAR(100),
-    telefono VARCHAR(20)
+    telefono VARCHAR(20),
+    notificaciones VARCHAR(10),
+    token VARCHAR(200)
 );
 
-INSERT INTO USUARIO VALUES(123, 'alvaro123', 'Alvaro', 'Velasco', '312456987');
