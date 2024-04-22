@@ -8,7 +8,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.entrega.view.LocationModal;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class DBHandler extends SQLiteOpenHelper {
 
@@ -24,6 +27,9 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String LONGITUDE = "longitude";
     private static final String ALTITUDE = "altitude";
     private static final String LANDMARK_TYPE = "type";
+    private static final String EVENT_ID_COL = "event_id";
+    private static final String DATETIME = "datetime";
+    private static final String EVENT = "event";
 
     // DB Constructor
     public DBHandler(Context context) {
@@ -43,6 +49,16 @@ public class DBHandler extends SQLiteOpenHelper {
                 + LANDMARK_TYPE + " TEXT)";
 
         db.execSQL(query);
+
+        query = "CREATE TABLE " + "events" + " ("
+                + EVENT_ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + ID_COL + " INTEGER, "
+                + DATETIME + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP, "
+                + EVENT + " TEXT, "
+                + "FOREIGN KEY (" + ID_COL + ") REFERENCES " + TABLE_NAME + "(" + ID_COL + "))";
+
+        db.execSQL(query);
+
     }
 
     //Insert
@@ -71,7 +87,9 @@ public class DBHandler extends SQLiteOpenHelper {
 
         if (cursorDevices.moveToFirst()) {
             do {
-                ModalArrayList.add(new LocationModal(cursorDevices.getString(1),
+                ModalArrayList.add(new LocationModal(
+                        cursorDevices.getString(0),
+                        cursorDevices.getString(1),
                         cursorDevices.getString(2),
                         cursorDevices.getString(3),
                         cursorDevices.getString(4),
@@ -114,5 +132,70 @@ public class DBHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
+    }
+
+    public String getLastEvent(String id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursorState = db.rawQuery("SELECT " + EVENT + " FROM events WHERE " + ID_COL + "=" + id + " ORDER BY "+ DATETIME + " DESC LIMIT 1", null);
+        if (cursorState.getCount()==0){
+            return null;
+        }
+        cursorState.moveToFirst();
+        return cursorState.getString(0);
+    }
+
+    public void addNewEvent(String id, String event) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        String currentDateandTime = sdf.format(new Date());
+
+        ContentValues values = new ContentValues();
+        values.put(ID_COL, id);
+        values.put(EVENT, event);
+        values.put(DATETIME, currentDateandTime);
+        db.insert("events", null, values);
+        db.close();
+    }
+
+    public ArrayList<ArrayList<String>> readEvents(String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursorDevices = db.rawQuery("SELECT * FROM " + "events WHERE " + ID_COL + "=" + id + " ORDER BY "+ DATETIME + " ASC", null);
+
+        ArrayList<ArrayList<String>> results = new ArrayList<>();
+
+        System.out.println(cursorDevices.getCount());
+        if (cursorDevices.moveToFirst()) {
+            do {
+                ArrayList<String> result = new ArrayList<>();
+                result.add(cursorDevices.getString(0));
+                result.add(cursorDevices.getString(1));
+                result.add(cursorDevices.getString(2));
+                result.add(cursorDevices.getString(3));
+                results.add(result);
+            } while (cursorDevices.moveToNext());
+        }
+        cursorDevices.close();
+        return results;
+    }
+
+    public ArrayList<ArrayList<String>> readEventsThisWeek(String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursorDevices = db.rawQuery("SELECT * FROM " + "events WHERE " + ID_COL + "=" + id + " AND DATE(" + DATETIME + ") >= DATE('now', 'weekday 0', '-7 days')" + " ORDER BY "+ DATETIME + " ASC", null);
+
+        ArrayList<ArrayList<String>> results = new ArrayList<>();
+
+        System.out.println(cursorDevices.getCount());
+        if (cursorDevices.moveToFirst()) {
+            do {
+                ArrayList<String> result = new ArrayList<>();
+                result.add(cursorDevices.getString(0));
+                result.add(cursorDevices.getString(1));
+                result.add(cursorDevices.getString(2));
+                result.add(cursorDevices.getString(3));
+                results.add(result);
+            } while (cursorDevices.moveToNext());
+        }
+        cursorDevices.close();
+        return results;
     }
 }
