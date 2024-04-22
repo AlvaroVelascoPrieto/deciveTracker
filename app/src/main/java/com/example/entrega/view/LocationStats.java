@@ -66,17 +66,19 @@ public class LocationStats extends AppCompatActivity {
                     horaEntrada = LocalDateTime.parse(act.get(2), formatter);
                 } else {
                     if (horaEntrada != null) {
+
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                         LocalDateTime horaSalida = LocalDateTime.parse(act.get(2), formatter);
                         Integer dow = Integer.valueOf(String.valueOf(horaSalida.getDayOfWeek().getValue()));
-                        Duration dur = Duration.between(horaSalida, horaEntrada);
+                        Duration dur = Duration.between(horaEntrada, horaSalida);
                         Float diff = Float.valueOf(Long.toString(dur.getSeconds())) / 3600.0f;
                         horasPasadas[dow - 1] += diff;
+                        System.out.println(horasPasadas[dow-1]);
                     }
                 }
             }
+            tvLocationStatus.setText("You have been " + act.get(3) + " since " + act.get(2));
         }
-        tvLocationStatus.setText("You have been " + events.get(0).get(3) + " since " + events.get(0).get(2));
         setupPieChart(pieChart, horasPasadas);
 
     }

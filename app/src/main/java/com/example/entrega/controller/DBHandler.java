@@ -159,7 +159,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     public ArrayList<ArrayList<String>> readEvents(String id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursorDevices = db.rawQuery("SELECT * FROM " + "events WHERE " + ID_COL + "=" + id + " ORDER BY "+ DATETIME + " DESC", null);
+        Cursor cursorDevices = db.rawQuery("SELECT * FROM " + "events WHERE " + ID_COL + "=" + id + " ORDER BY "+ DATETIME + " ASC", null);
 
         ArrayList<ArrayList<String>> results = new ArrayList<>();
 
@@ -180,7 +180,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     public ArrayList<ArrayList<String>> readEventsThisWeek(String id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursorDevices = db.rawQuery("SELECT * FROM " + "events WHERE " + ID_COL + "=" + id + " AND DATE(" + DATETIME + ") >= DATE('now', 'weekday 0', '-7 days')" + " ORDER BY "+ DATETIME + " DESC", null);
+        Cursor cursorDevices = db.rawQuery("SELECT * FROM " + "events WHERE " + ID_COL + "=" + id + " AND DATE(" + DATETIME + ") >= DATE('now', 'weekday 0', '-7 days')" + " ORDER BY "+ DATETIME + " ASC", null);
 
         ArrayList<ArrayList<String>> results = new ArrayList<>();
 
