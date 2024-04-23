@@ -31,4 +31,10 @@
     <string name="add_new_location">Kokapen berri bat gehitu</string>
     <string name="view_all_locations">Kokapenak ikusi</string>
     <string name="sign_out">Saioa itxi</string>
+    <string name="capture">Argazkia atera</string>
+    <string name="enter_new_information">Informazio berria sartu</string>
+    <string name="password">Pasahitza</string>
+    <string name="last_name">Abizena</string>
+    <string name="phone">Telefonoa</string>
+    <string name="receive_push_notifications">Urrutiko notifikazioak bidali</string>
 </resources>

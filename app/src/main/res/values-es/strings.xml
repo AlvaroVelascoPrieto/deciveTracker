@@ -31,4 +31,10 @@
     <string name="add_new_location">Añadir nueva ubicación</string>
     <string name="view_all_locations">Ver ubicaciones</string>
     <string name="sign_out">Cerrar sesion</string>
+    <string name="capture">Capturar</string>
+    <string name="enter_new_information">Introduce la nueva información</string>
+    <string name="password">Contraseña</string>
+    <string name="last_name">Apellido</string>
+    <string name="phone">Telefono</string>
+    <string name="receive_push_notifications">Recibir notiifcaciones remotas</string>
 </resources>

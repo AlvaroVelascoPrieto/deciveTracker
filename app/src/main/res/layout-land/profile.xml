@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="32dp"
-        android:text="User ID:"
+        android:text="@string/user_id"
         android:textColor="@color/black"
         android:textSize="18sp"/>
 
@@ -48,7 +48,7 @@
         android:layout_below="@id/user_id_value"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
-        android:text="Password:"
+        android:text="@string/password"
         android:textColor="@color/black"
         android:textSize="18sp"/>
 
@@ -73,7 +73,7 @@
         android:layout_below="@id/password_value"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
-        android:text="Name:"
+        android:text="@string/name"
         android:textColor="@color/black"
         android:textSize="18sp"/>
 
@@ -98,7 +98,7 @@
         android:layout_below="@id/name_value"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
-        android:text="Last Name:"
+        android:text="@string/last_name"
         android:textColor="@color/black"
         android:textSize="18sp"/>
 
@@ -123,7 +123,7 @@
         android:layout_below="@id/last_name_value"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
-        android:text="Phone:"
+        android:text="@string/phone"
         android:textColor="@color/black"
         android:textSize="18sp"/>
 

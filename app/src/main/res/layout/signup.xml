@@ -126,7 +126,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="8dp"
-        android:text="Receive push notifications" />
+        android:text="@string/receive_push_notifications" />
 
     <Button
         android:id="@+id/idBtnSignUpSubmit"

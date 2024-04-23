@@ -31,4 +31,11 @@
     <string name="add_new_location">Add New Location</string>
     <string name="view_all_locations">View All Locations</string>
     <string name="sign_out">Sign Out</string>
+    <string name="capture">Capture</string>
+    <string name="enter_new_information">Enter new information</string>
+    <string name="user_id" translatable="false">User ID</string>
+    <string name="password">Password</string>
+    <string name="last_name">Last Name</string>
+    <string name="phone">Phone</string>
+    <string name="receive_push_notifications">Receive push notifications</string>
 </resources>

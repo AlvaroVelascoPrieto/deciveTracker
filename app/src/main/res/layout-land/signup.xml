@@ -135,7 +135,7 @@
         android:layout_weight="1"
         android:padding="3dp"
         android:layout_margin="10dp"
-        android:text="Receive push notifications"
+        android:text="@string/receive_push_notifications"
         android:layout_width="0dp"/>
 
     <Button
