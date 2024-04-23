@@ -4,26 +4,34 @@ import static androidx.core.content.ContextCompat.startActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.entrega.R;
 import com.example.entrega.controller.RemoteDBHandler;
 
+import java.util.Objects;
+
 public class SignUp extends AppCompatActivity {
     private EditText edtDNI, edtPassword, edtPassword2, edtName, edtLastName, edtPhone;
     private Button btnSignUpSubmit;
+    private Switch swNotifications;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
+
 
         edtDNI = findViewById(R.id.idEdtDNI);
         edtPassword = findViewById(R.id.idEdtContrasena);
@@ -32,6 +40,7 @@ public class SignUp extends AppCompatActivity {
         edtLastName = findViewById(R.id.idEdtLastName);
         edtPhone = findViewById(R.id.idEdtTelephone);
         btnSignUpSubmit = findViewById(R.id.idBtnSignUpSubmit);
+        swNotifications = findViewById(R.id.notifications);
 
 
         btnSignUpSubmit.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +61,10 @@ public class SignUp extends AppCompatActivity {
                 String name = edtName.getText().toString();
                 String lastName = edtLastName.getText().toString();
                 String phone = edtPhone.getText().toString();
+                Boolean notifications = swNotifications.isChecked();
+
+                SharedPreferences prefs = getSharedPreferences("my_preferences", MODE_PRIVATE);
+                String token = prefs.getString("fcm_token","eee");
 
                 if (dni.isEmpty() || contrasena.isEmpty() || contrasena2.isEmpty() || name.isEmpty() || lastName.isEmpty() || phone.isEmpty()){
                     SignUp.this.runOnUiThread(new Runnable() {
@@ -69,7 +82,7 @@ public class SignUp extends AppCompatActivity {
                     });
                     return;
                 }
-                int code = RemoteDBHandler.registerUser(dni, contrasena, name, lastName, phone);
+                int code = RemoteDBHandler.registerUser(dni, contrasena, name, lastName, phone, notifications, token);
 
                 if (code == 200) {
                     SignUp.this.runOnUiThread(new Runnable() {

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LocationTracker</string>
+    <string name="app_name">Location Tracker</string>
     <string name="spinner_title">Location Type</string>
     <string name="locationName">Location Name</string>
     <string name="date">Date</string>
@@ -26,4 +26,9 @@
     <string name="lastname">Last Name</string>
     <string name="name">Name</string>
     <string name="repeatPassword">Repeat Password</string>
+    <string name="editLocation">Edit Location</string>
+    <string name="view_profile_data">View Profile Data</string>
+    <string name="add_new_location">Add New Location</string>
+    <string name="view_all_locations">View All Locations</string>
+    <string name="sign_out">Sign Out</string>
 </resources>

@@ -26,7 +26,7 @@ import java.util.Iterator;
 public class ActionMenu extends AppCompatActivity {
 
     public Button viewProfileData, addNewLocation, seeAllLocations, signOut;
-    private String id, password, name, lastname, phone, longitude, latitude;
+    private String id, password, name, lastname, phone, longitude, latitude, notificaciones;
     FusedLocationProviderClient fusedLocationProviderClient;
     static final int PERMISSIONS_FINE_LOCATION = 99;
     static final int ACCESS_BACKGROUND_LOCATION = 98;
@@ -48,6 +48,7 @@ public class ActionMenu extends AppCompatActivity {
         name = getIntent().getStringExtra("name");
         lastname = getIntent().getStringExtra("lastname");
         phone = getIntent().getStringExtra("phone");
+        notificaciones = getIntent().getStringExtra("notificaciones");
 
         viewProfileData.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +60,7 @@ public class ActionMenu extends AppCompatActivity {
                 i.putExtra("name", name);
                 i.putExtra("lastname", lastname);
                 i.putExtra("phone", phone);
+                i.putExtra("notificaciones", notificaciones);
                 startActivity(i);
             }
         });

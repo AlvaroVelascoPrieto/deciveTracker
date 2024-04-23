@@ -9,39 +9,44 @@
     tools:context=".view.MainActivity"
     tools:ignore="ExtraText">
 
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/idInputLayoutDNI"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp">
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="0dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/idEdtDNI"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:hint="@string/DNI"
             android:inputType="number"
-            android:minHeight="48dp" />
+            android:minHeight="40dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/idInputLayoutContrasena"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp">
+        android:layout_weight="1"
+        android:padding="3dp"
+        android:layout_margin="2dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/idEdtContrasena"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:hint="@string/contrasena"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -49,35 +54,38 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/idInputLayoutContrasena2"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp">
+        android:layout_weight="1"
+        android:padding="3dp"
+        android:layout_margin="2dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/idEdtContrasena2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:hint="@string/repeatPassword"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
-
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/idInputLayoutName"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp">
+        android:layout_weight="1"
+        android:padding="3dp"
+        android:layout_margin="2dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/idEdtName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:hint="@string/name"
             android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -85,30 +93,29 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/idInputLayoutLastName"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp">
+        android:layout_weight="1"
+        android:padding="3dp"
+        android:layout_margin="2dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/idEdtLastName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:hint="@string/lastname"
             android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
-
+    </LinearLayout>
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/idInputLayoutTelephone"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp">
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="2dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/idEdtTelephone"
@@ -117,27 +124,29 @@
             android:hint="@string/telephone"
             android:inputType="phone" />
     </com.google.android.material.textfield.TextInputLayout>
-
-    <Switch
-        android:id="@+id/notifications"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="8dp"
-        android:text="Receive push notifications" />
+        android:orientation="horizontal"
+        android:weightSum="2">
+    <Switch
+        android:id="@+id/notifications"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="3dp"
+        android:layout_margin="10dp"
+        android:text="Receive push notifications"
+        android:layout_width="0dp"/>
 
     <Button
         android:id="@+id/idBtnSignUpSubmit"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="8dp"
+        android:layout_weight="1"
+        android:padding="3dp"
+        android:layout_margin="10dp"
         android:backgroundTint="#673AB7"
         android:text="@string/SignUp"
         android:textAllCaps="false" />
-
+    </LinearLayout>
 </LinearLayout>

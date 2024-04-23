@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">LocationTracker</string>
+    <string name="app_name">Location Tracker</string>
     <string name="spinner_title">Tipo de Ubicación</string>
     <string name="locationName">Nombre de Ubicación</string>
     <string name="date">Fecha</string>
@@ -26,4 +26,9 @@
     <string name="lastname">Apellido</string>
     <string name="name">Nombre</string>
     <string name="repeatPassword">Repetir contraseña</string>
+    <string name="editLocation">Editar Ubicación</string>
+    <string name="view_profile_data">Ver datos de prefil</string>
+    <string name="add_new_location">Añadir nueva ubicación</string>
+    <string name="view_all_locations">Ver ubicaciones</string>
+    <string name="sign_out">Cerrar sesion</string>
 </resources>

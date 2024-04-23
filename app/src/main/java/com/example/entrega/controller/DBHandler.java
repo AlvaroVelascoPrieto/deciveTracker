@@ -16,7 +16,7 @@ import java.util.Locale;
 public class DBHandler extends SQLiteOpenHelper {
 
     //Constant variables for DB
-    private static final String DB_NAME = "Devicedb";
+    private static final String DB_NAME = "LocationDB";
     private static final int DB_VERSION = 1;
     private static final String TABLE_NAME = "myDevices";
     //Column names

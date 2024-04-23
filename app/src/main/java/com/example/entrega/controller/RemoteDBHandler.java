@@ -67,7 +67,7 @@ public class RemoteDBHandler {
 
     }
 
-    public static int registerUser(String dni, String password, String name, String lastName, String phone) {
+    public static int registerUser(String dni, String password, String name, String lastName, String phone, Boolean notifications, String token) {
         try {
             URL url = new URL(String.format("http://34.70.109.203"));
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -84,12 +84,16 @@ public class RemoteDBHandler {
                             "contrasena=%s&" +
                             "nombre=%s&" +
                             "apellido=%s&" +
-                            "telefono=%s&",
+                            "telefono=%s&" +
+                            "notificaciones=%s&" +
+                            "token=%s&",
                     URLEncoder.encode(dni, charset),
                     URLEncoder.encode(password, charset),
                     URLEncoder.encode(name, charset),
                     URLEncoder.encode(lastName, charset),
-                    URLEncoder.encode(phone, charset));
+                    URLEncoder.encode(phone, charset),
+                    URLEncoder.encode(String.valueOf(notifications), charset),
+                    URLEncoder.encode(token, charset));
 
             OutputStream out = urlConnection.getOutputStream();
             out.write(query.getBytes());
@@ -108,7 +112,7 @@ public class RemoteDBHandler {
     }
 
 
-    public static int editProfileField(String id, String password, String name, String lastName, String phone) throws IOException, JSONException {
+    public static int editProfileField(String id, String password, String name, String lastName, String phone, Boolean notifications, String token) throws IOException, JSONException {
         URL url = new URL("http://34.70.109.203");
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         String charset = "UTF-8";
@@ -121,12 +125,18 @@ public class RemoteDBHandler {
                         "nPassword=%s&" +
                         "nName=%s&" +
                         "nLastName=%s&" +
-                        "nPhone=%s&",
+                        "nPhone=%s&" +
+                        "notificaciones=%s&" +
+                        "token=%s&",
                 URLEncoder.encode(id, charset),
                 URLEncoder.encode(password, charset),
                 URLEncoder.encode(name, charset),
                 URLEncoder.encode(lastName, charset),
-                URLEncoder.encode(phone, charset));
+                URLEncoder.encode(phone, charset),
+                URLEncoder.encode(String.valueOf(notifications), charset),
+                URLEncoder.encode(token, charset)
+
+        );
 
         System.out.println(query);
         OutputStream output = urlConnection.getOutputStream();

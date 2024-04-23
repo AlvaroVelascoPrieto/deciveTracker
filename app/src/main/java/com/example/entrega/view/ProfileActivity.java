@@ -2,6 +2,7 @@ package com.example.entrega.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,7 +25,7 @@ import com.example.entrega.controller.RemoteDBHandler;
 
 public class ProfileActivity extends AppCompatActivity {
     private TextView clickedTextView;
-    private String id, password, name, lastname, phone;
+    private String id, password, name, lastname, phone, notificaciones;
     private TextView edtId, edtPassword, edtName, edtLastName, edtPhone;
 
     private ImageView profilePicture;
@@ -38,6 +39,7 @@ public class ProfileActivity extends AppCompatActivity {
         name = getIntent().getStringExtra("name");
         lastname = getIntent().getStringExtra("lastname");
         phone = getIntent().getStringExtra("phone");
+        notificaciones = getIntent().getStringExtra("notificaciones");
         profilePicture = findViewById(R.id.profile_picture);
         edtId = findViewById(R.id.user_id_value);
         edtId.setText(id);
@@ -63,6 +65,7 @@ public class ProfileActivity extends AppCompatActivity {
                 i.putExtra("name", name);
                 i.putExtra("lastname", lastname);
                 i.putExtra("phone", phone);
+                i.putExtra("notificaciones", notificaciones);
                 startActivity(i);
             }
         };
@@ -73,6 +76,8 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Bitmap bm = RemoteDBHandler.getUserProfilePicture(id);
+                System.out.println("BITMAP");
+                System.out.println(bm);
                 ProfileActivity.this.runOnUiThread(new Runnable() {
                     public void run() {
                         profilePicture.setImageBitmap(bm);
@@ -130,14 +135,15 @@ public class ProfileActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     try {
-
+                        SharedPreferences prefs = getSharedPreferences("my_preferences", MODE_PRIVATE);
                         String id = edtId.getText().toString();
                         String nPassword = edtPassword.getText().toString();
                         String nName = edtName.getText().toString();
                         String nLastName = edtLastName.getText().toString();
                         String nPhone = edtPhone.getText().toString();
+                        String token = prefs.getString("fcm_token","eee");
 
-                        int code = RemoteDBHandler.editProfileField(id, nPassword, nName, nLastName, nPhone);
+                        int code = RemoteDBHandler.editProfileField(id, nPassword, nName, nLastName, nPhone, Boolean.getBoolean(notificaciones), token);
 
                         if (code == 200) {
                             ProfileActivity.this.runOnUiThread(new Runnable() {

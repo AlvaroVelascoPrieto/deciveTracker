@@ -7,7 +7,7 @@
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pieChart"
         android:layout_width="match_parent"
-        android:layout_height="514dp" />
+        android:layout_height="170dp" />
 
     <TextView
         android:id="@+id/idTVLocationStatus"

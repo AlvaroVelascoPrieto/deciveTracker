@@ -136,5 +136,13 @@
                 android:textAllCaps="false" />
         </LinearLayout>
 
+        <Button
+            android:id="@+id/idBtnOpenMap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/openInMaps"
+            android:backgroundTint="#FFC107"
+            android:textAllCaps="false" />
     </LinearLayout>
 </ScrollView>

@@ -9,21 +9,21 @@
     <Button
         android:id="@+id/idBtnProfile"
         android:layout_width="match_parent"
-        android:layout_height="340dp"
+        android:layout_height="80dp"
         android:layout_marginBottom="8dp"
-        android:backgroundTint="#4CAF50"
         android:layout_weight="1"
+        android:backgroundTint="#4CAF50"
         android:drawablePadding="8dp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:text="@string/view_profile_data"
+        android:text="View Profile Data"
         android:textAllCaps="false"
         android:textColor="@color/black" />
 
     <!-- Horizontal LinearLayout for the last two buttons -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="115dp"
         android:layout_weight="1"
         android:orientation="horizontal">
 
@@ -32,7 +32,7 @@
             android:id="@+id/idBtnAddLocation"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="152dp"
             android:layout_marginEnd="4dp"
             android:layout_weight="1"
             android:backgroundTint="#4CAF50"
@@ -40,7 +40,7 @@
             android:gravity="center"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:text="@string/add_new_location"
+            android:text="Add New Location"
             android:textAllCaps="false"
             android:textColor="@color/black" /> <!-- Added margin to the end -->
 
@@ -49,14 +49,14 @@
             android:id="@+id/idBtnViewLocations"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="152dp"
             android:layout_marginStart="4dp"
             android:layout_weight="1"
             android:backgroundTint="#9C27B0"
             android:gravity="center"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:text="@string/view_all_locations"
+            android:text="View All Locations"
             android:textAllCaps="false"
             android:textColor="@color/black" />
 
@@ -65,13 +65,13 @@
     <Button
         android:id="@+id/idSignOut"
         android:layout_width="match_parent"
-        android:layout_height="86dp"
+        android:layout_height="25dp"
         android:layout_weight="1"
         android:backgroundTint="#F33628"
         android:gravity="center"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:text="@string/sign_out"
+        android:text="Sign Out"
         android:textAllCaps="false"
         android:textColor="@color/black" />
 

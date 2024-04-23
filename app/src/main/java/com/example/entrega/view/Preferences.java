@@ -62,7 +62,7 @@ public class Preferences extends AppCompatActivity {
                     recreate();
                 }
 
-                Intent i = new Intent(Preferences.this, MainActivity.class);
+                Intent i = new Intent(Preferences.this, LogIn.class);
                 startActivity(i);
             }
         });

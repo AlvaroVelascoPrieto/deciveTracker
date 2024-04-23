@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">LocationTracker</string>
+    <string name="app_name">Location Tracker</string>
     <string name="spinner_title">Sailkatu</string>
     <string name="locationName">kokapen Izena</string>
     <string name="date">Data</string>
@@ -26,4 +26,9 @@
     <string name="lastname">Abizena</string>
     <string name="name">Izena</string>
     <string name="repeatPassword">Pasahitza errepikatu</string>
+    <string name="editLocation">Kokapena Editatu</string>
+    <string name="view_profile_data">Profileko informazioa ikusi</string>
+    <string name="add_new_location">Kokapen berri bat gehitu</string>
+    <string name="view_all_locations">Kokapenak ikusi</string>
+    <string name="sign_out">Saioa itxi</string>
 </resources>

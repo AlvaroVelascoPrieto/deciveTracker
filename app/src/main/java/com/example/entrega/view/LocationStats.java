@@ -1,10 +1,14 @@
 package com.example.entrega.view;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.Highlights;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,23 +36,35 @@ import java.util.List;
 import java.util.Locale;
 
 public class LocationStats extends AppCompatActivity {
+    private String id, name, type, latitude, longitude, altitude, date;
 
     // Variables de ejemplo (reemplaza con tus propios datos)
     private float[] horasPasadas = {0, 0, 0, 0, 0, 0, 0}; // Horas pasadas en la ubicación cada día
     private String[] diasSemana = {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sabado", "Domingo"};
 
     TextView tvLocationStatus, tvLocationDate;
+    private Button btnEditLocation;
     private ArrayList<ArrayList<String>> events;
     private String locationId;
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.location_stats);
 
+        id = getIntent().getStringExtra("id");
+        name = getIntent().getStringExtra("name");
+        type = getIntent().getStringExtra("type");
+        latitude = getIntent().getStringExtra("latitude");
+        longitude = getIntent().getStringExtra("longitude");
+        altitude = getIntent().getStringExtra("altitude");
+        date = getIntent().getStringExtra("date");
+
         // Configurar el gráfico de pastel
         PieChart pieChart = findViewById(R.id.pieChart);
 
         tvLocationStatus = findViewById(R.id.idTVLocationStatus);
+        btnEditLocation = findViewById(R.id.btnEditLocation);
         locationId = getIntent().getStringExtra("id");
         DBHandler dbHandler = new DBHandler(LocationStats.this.getApplicationContext());
         events = dbHandler.readEventsThisWeek(locationId);
@@ -80,6 +96,22 @@ public class LocationStats extends AppCompatActivity {
             tvLocationStatus.setText("You have been " + act.get(3) + " since " + act.get(2));
         }
         setupPieChart(pieChart, horasPasadas);
+
+        btnEditLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LocationStats.this, UpdateLocationActivity.class);
+
+                i.putExtra("id", id);
+                i.putExtra("name", name);
+                i.putExtra("type", type);
+                i.putExtra("latitude", latitude);
+                i.putExtra("longitude", longitude);
+                i.putExtra("altitude", altitude);
+                i.putExtra("date", date);
+                startActivity(i);
+            }
+        });
 
     }
 
