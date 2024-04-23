@@ -35,10 +35,12 @@ public class ActionMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.action_menu);
 
+        //Layout views
         viewProfileData = findViewById(R.id.idBtnProfile);
         addNewLocation = findViewById(R.id.idBtnAddLocation);
         seeAllLocations = findViewById(R.id.idBtnViewLocations);
         signOut = findViewById(R.id.idSignOut);
+
 
         viewProfileData.setCompoundDrawablesWithIntrinsicBounds(null, getDrawable(R.drawable.baseline_account_circle_24), null, null);
         addNewLocation.setCompoundDrawablesWithIntrinsicBounds(null, getDrawable(R.drawable.baseline_add_location_alt_24), null, null);
@@ -94,6 +96,7 @@ public class ActionMenu extends AppCompatActivity {
 
     }
 
+    //Check if a location is within x meters of another
     private String insideOrOutside(Location origin, float radius, Location current){
         float distance = origin.distanceTo(current);
         if (distance<=radius){
@@ -102,6 +105,7 @@ public class ActionMenu extends AppCompatActivity {
         return "outside";
     }
 
+    //Get GPS location and handle permissions
     private void updateGPS(){
         System.out.println("AAA");
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);

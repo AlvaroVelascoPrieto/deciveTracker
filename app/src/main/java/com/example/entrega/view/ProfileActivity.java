@@ -94,8 +94,6 @@ public class ProfileActivity extends AppCompatActivity {
         thread.start();
     }
 
-
-
     public void changeProfilePicture(View view) {
         Intent i = new Intent(ProfileActivity.this, CameraActivity.class);
         i.putExtra("id", id);
@@ -117,6 +115,7 @@ public class ProfileActivity extends AppCompatActivity {
         showDialog((TextView) view);
     }
 
+    //Showing dialog to change data
     private void showDialog(TextView textView) {
         clickedTextView = textView;
         String currentValue = ((TextView) findViewById(textView.getId())).getText().toString();
@@ -126,6 +125,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
+    //Handling database update when info changes
     public void onInfoChanged(String newInfo) {
         // Update the clicked text view with the new information
         if (clickedTextView != null) {
@@ -195,6 +195,7 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
+    //Handling back button
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {

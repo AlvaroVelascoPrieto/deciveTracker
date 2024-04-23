@@ -49,35 +49,18 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 public class MyWorker extends Worker {
     private static final String TAG = "MyWorker";
-
-    /**
-     * The desired interval for location updates. Inexact. Updates may be more or less frequent.
-     */
+    //Interval ofr location update
     private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 10000;
-
-    /**
-     * The fastest rate for active location updates. Updates will never be more frequent
-     * than this value.
-     */
     private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS =
             UPDATE_INTERVAL_IN_MILLISECONDS / 2;
-    /**
-     * The current location.
-     */
     private Location mLocation;
-
-    /**
-     * Provides access to the Fused Location Provider API.
-     */
     private FusedLocationProviderClient mFusedLocationClient;
 
     private Context mContext;
-    /**
-     * Callback for changes in location.
-     */
     private LocationCallback mLocationCallback;
     FusedLocationProviderClient fusedLocationProviderClient;
 
+    //Constructor
     public MyWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
         mContext = context;
@@ -110,6 +93,7 @@ public class MyWorker extends Worker {
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         try {
+            //Get current location
             Date currentDate = dateFormat.parse(formattedDate);
             mFusedLocationClient
                     .getLastLocation()
@@ -122,12 +106,13 @@ public class MyWorker extends Worker {
                                 DBHandler dbHandler = new DBHandler(MyWorker.this.getApplicationContext());
                                 ArrayList<LocationModal> locations = dbHandler.readLocations();
                                 Iterator<LocationModal> iter = locations.iterator();
+                                //Check all locations
                                 while (iter.hasNext()){
                                     LocationModal act = iter.next();
                                     Location origin = new Location("Origin");
                                     origin.setLatitude(Float.valueOf(act.getLatitude()));
                                     origin.setLongitude(Float.valueOf(act.getLongitude()));
-                                    String position = insideOrOutside(origin, 100.0F, mLocation);
+                                    String position = insideOrOutside(origin, 80.0F, mLocation);
                                     if (dbHandler.getLastEvent(String.valueOf(act.getId()))!=null && !dbHandler.getLastEvent(String.valueOf(act.getId())).equals(position)){
                                         dbHandler.addNewEvent(String.valueOf(act.getId()), position);
                                         Log.d(TAG,"Executed");
@@ -183,6 +168,7 @@ public class MyWorker extends Worker {
         return Result.success();
     }
 
+    //Checks if current location is within a certain location
     private String insideOrOutside(Location origin, float radius, Location current){
         float distance = origin.distanceTo(current);
         if (distance<=radius){

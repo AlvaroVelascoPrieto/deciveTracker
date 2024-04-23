@@ -30,6 +30,7 @@ import java.net.URLEncoder;
 
 public class RemoteDBHandler {
     static String ip = String.valueOf(R.string.ip);
+    //HTTP request to handle user credential check
     public static JSONObject checkUserCreds(String dni, String password) {
         try {
             String charset = "UTF-8";
@@ -37,7 +38,6 @@ public class RemoteDBHandler {
                     URLEncoder.encode(dni, charset),
                     URLEncoder.encode(password, charset));
             URL url = new URL(String.format("http://34.70.109.203") + query);
-            System.out.println(url);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.setRequestProperty("Accept-Charset", charset);
@@ -52,6 +52,7 @@ public class RemoteDBHandler {
 
             int code = jsonValue.getInt("code");
 
+            //Server returns code 200 if credentials are correct
             if (code == 200) {
                 return jsonValue;
             } else {
@@ -67,6 +68,7 @@ public class RemoteDBHandler {
 
     }
 
+    //HTTP request to add user data to the database
     public static int registerUser(String dni, String password, String name, String lastName, String phone, Boolean notifications, String token) {
         try {
             URL url = new URL(String.format("http://34.70.109.203"));
@@ -111,7 +113,7 @@ public class RemoteDBHandler {
         }
     }
 
-
+    //HTTP request to edit user information
     public static int editProfileField(String id, String password, String name, String lastName, String phone, Boolean notifications, String token) throws IOException, JSONException {
         URL url = new URL("http://34.70.109.203");
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -138,7 +140,6 @@ public class RemoteDBHandler {
 
         );
 
-        System.out.println(query);
         OutputStream output = urlConnection.getOutputStream();
         output.write(query.getBytes(charset));
 
@@ -153,6 +154,7 @@ public class RemoteDBHandler {
         return code;
     }
 
+    //HTTP request to get profile picture
     public static Bitmap getUserProfilePicture(String dni) {
         try {
             String urldisplay = String.format("http://34.70.109.203/public/uploads/" + dni + ".jpg");

@@ -22,20 +22,19 @@ import com.google.firebase.messaging.RemoteMessage;
 import org.jetbrains.annotations.NotNull;
 
 public class FCMReceiver extends FirebaseMessagingService {
+    //Constructor
     public FCMReceiver() {
     }
     private static final String TAG = "ServicioFirebase";
 
-
-
-
-
+    //When creating a new token it gets saved to preferences
     @Override
     public void onNewToken(String token) {
         Log.d(TAG, "Refreshed token: " + token);
         saveTokenToPrefs(token);
     }
 
+    //Handling message recepcion
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Log.d(TAG, "Message received");
         if (remoteMessage.getData().size() > 0) {
@@ -47,6 +46,7 @@ public class FCMReceiver extends FirebaseMessagingService {
         }
     }
 
+    //Seving a token to preferences
     private void saveTokenToPrefs(String token) {
         SharedPreferences prefs = getSharedPreferences("my_preferences", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
@@ -54,6 +54,7 @@ public class FCMReceiver extends FirebaseMessagingService {
         editor.apply();
     }
 
+    //Showing a notificatio (gets called by onMessageReceive)
     private void showNotification(String title, String message) {
         Intent intent = new Intent(this, ActionMenu.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

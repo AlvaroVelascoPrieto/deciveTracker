@@ -97,6 +97,7 @@ public class LogIn extends AppCompatActivity {
         }
     }
 
+    //Handling the login with multithreading
     private void logIn() {
         SharedPreferences prefs = getSharedPreferences("my_preferences", MODE_PRIVATE);
 
@@ -192,6 +193,7 @@ public class LogIn extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //Setting language preferences
     private void setLocale() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         if (!preferences.contains("selected_language")) {

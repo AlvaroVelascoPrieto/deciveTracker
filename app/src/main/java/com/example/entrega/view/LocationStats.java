@@ -1,3 +1,8 @@
+/**Basado en el código extraído de la siguiente libreria de GitHub
+ Repositorio: https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartLib/src/main/java/com/github/mikephil/charting/charts/PieChart.java Autor: https://github.com/PhilJay
+ Modificado por Alvaro Velasco para mostrar estadísticas de ubicación
+ **/
+
 package com.example.entrega.view;
 
 import android.annotation.SuppressLint;
