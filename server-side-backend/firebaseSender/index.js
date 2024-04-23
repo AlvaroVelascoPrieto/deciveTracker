@@ -33,8 +33,8 @@ const mysql = require('mysql')
 				});
 				var message = {
 					notification: {
-					  title: 'Message from node',
-					  body: 'hey there'
+					  title: 'Location Tracker',
+					  body: 'Check your location stats'
 					},
 					tokens: registrationToken
 				  };
